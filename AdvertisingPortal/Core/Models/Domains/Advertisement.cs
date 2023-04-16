@@ -1,0 +1,48 @@
+﻿using Microsoft.VisualBasic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AdvertisingPortal.Core.Models.Domains
+{
+    public class Advertisement
+    {
+        public Advertisement()
+        {
+            Pictures = new Collection<Picture>();
+        }
+        public int Id { get; set; }
+
+        [Display(Name = "Tytuł")]
+        [Required(ErrorMessage = "Pole Tytuł jest wymagane")]
+        public string Title { get; set; }
+
+        [Display(Name = "Opis")]
+        [Required(ErrorMessage = "Pole Opis jest wymagane")]
+        public string Description { get; set; }
+
+        [Column(TypeName = "money")]
+        [Display(Name = "Cena")]
+        public  decimal Price { get; set; }
+
+        [Display(Name = "Miejscowość")]
+        [Required(ErrorMessage = "Pole Miejscowość jest wymagane")]
+        public string Place { get; set; }
+
+        [Display(Name = "Data dodania")]
+        public DateTime DateOfPublication { get; set; }
+
+
+        [Display(Name = "Kategoria")]
+        [Required(ErrorMessage = "Pole Kategoria jest wymagane")]
+        public int CategoryId { get; set; }
+
+        public string UserId { get; set; }
+
+        public Category Category { get; set; }
+        public ApplicationUser User { get; set; }
+
+        public ICollection<Picture> Pictures { get; set; }
+
+    }
+}
