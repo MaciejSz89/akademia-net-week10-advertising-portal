@@ -7,9 +7,10 @@ namespace AdvertisingPortal.Core.Models.Domains
     public class ApplicationUser : IdentityUser
     {
 
-        public ApplicationUser()
+        public ApplicationUser(string nickname)
         {
             Advertisements = new Collection<Advertisement>();
+            Nickname = nickname;
         }
 
 

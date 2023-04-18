@@ -16,9 +16,8 @@ namespace AdvertisingPortal.Persistence
         }
 
 
-
-        DbSet<Advertisement> Advertisements { get; set;}
-        DbSet<Category> Categories { get; set;}
-        DbSet<Picture> Pictures { get; set;}
+        DbSet<Advertisement> Advertisements => Set<Advertisement>();
+        DbSet<Category> Categories => Set<Category>();
+        DbSet<Picture> Pictures => Set<Picture>();
     }
 }

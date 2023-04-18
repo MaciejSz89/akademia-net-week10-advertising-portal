@@ -1,33 +1,37 @@
-﻿using Microsoft.VisualBasic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdvertisingPortal.Core.Models.Domains
 {
+
+    [AllowAnonymous]
     public class Advertisement
     {
-        public Advertisement()
+        public Advertisement(string userId)
         {
             Pictures = new Collection<Picture>();
+            UserId = userId;
         }
         public int Id { get; set; }
 
         [Display(Name = "Tytuł")]
         [Required(ErrorMessage = "Pole Tytuł jest wymagane")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [Display(Name = "Opis")]
         [Required(ErrorMessage = "Pole Opis jest wymagane")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Column(TypeName = "money")]
         [Display(Name = "Cena")]
-        public  decimal Price { get; set; }
+        public decimal Price { get; set; }
 
         [Display(Name = "Miejscowość")]
         [Required(ErrorMessage = "Pole Miejscowość jest wymagane")]
-        public string Place { get; set; }
+        public string? Location { get; set; }
 
         [Display(Name = "Data dodania")]
         public DateTime DateOfPublication { get; set; }
@@ -39,8 +43,8 @@ namespace AdvertisingPortal.Core.Models.Domains
 
         public string UserId { get; set; }
 
-        public Category Category { get; set; }
-        public ApplicationUser User { get; set; }
+        public Category? Category { get; set; }
+        public ApplicationUser? User { get; set; }
 
         public ICollection<Picture> Pictures { get; set; }
 

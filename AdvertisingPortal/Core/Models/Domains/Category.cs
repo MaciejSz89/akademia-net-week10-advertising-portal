@@ -6,9 +6,10 @@ namespace AdvertisingPortal.Core.Models.Domains
 {
     public class Category
     {
-        public Category()
+        public Category(string name)
         {
             Advertisements = new Collection<Advertisement>();
+            Name = name;
         }
         public int Id { get; set; }
 
