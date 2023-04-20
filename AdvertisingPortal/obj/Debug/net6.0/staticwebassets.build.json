@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/RwpYdT6D3lB0XXXnyovz9I9OMv8pDgoyJH4CtGm4Bk=",
+  "Hash": "sYHuoR6CssBnpxYLbAS74srbnwV7mj3N26NSQ7N9zJk=",
   "Source": "AdvertisingPortal",
   "BasePath": "_content/AdvertisingPortal",
   "Mode": "Default",
@@ -1103,6 +1103,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\wwwroot\\img\\laptop.jpg",
+      "SourceId": "AdvertisingPortal",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\wwwroot\\",
+      "BasePath": "_content/AdvertisingPortal",
+      "RelativePath": "img/laptop.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\laptop.jpg"
     },
     {
       "Identity": "D:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\wwwroot\\js\\site.js",

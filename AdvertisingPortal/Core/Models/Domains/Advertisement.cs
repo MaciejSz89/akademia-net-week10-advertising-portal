@@ -44,7 +44,7 @@ namespace AdvertisingPortal.Core.Models.Domains
         public string UserId { get; set; }
 
         public Category? Category { get; set; }
-        public ApplicationUser? User { get; set; }
+        public ApplicationUser User { get; set; }
 
         public ICollection<Picture> Pictures { get; set; }
 

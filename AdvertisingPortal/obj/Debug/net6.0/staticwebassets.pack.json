@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\wwwroot\\img\\laptop.jpg",
+      "PackagePath": "staticwebassets\\img\\laptop.jpg"
+    },
+    {
       "Id": "D:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

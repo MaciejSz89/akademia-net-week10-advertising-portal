@@ -5,11 +5,12 @@
 <table class="table table-bordered table-stripped table-hover">
     @foreach (var advertisement in Model)
     {
-        <tr style="height:100px;">
+        <tr style="cursor:pointer;height:100px;" >
             <td style="width:100px;">
                 @if (advertisement.Pictures != null && advertisement.Pictures.Any())
                 {
-                    <img class="h-100" src="data:image;base64,@System.Convert.ToBase64String(advertisement.Pictures.Single(x=>x.IsMainPicture).Image)" />
+                    <img class="h-100 img-thumbnail" 
+                         src="data:image;base64,@System.Convert.ToBase64String(advertisement.Pictures.Single(x=>x.IsMainPicture).Image)" />
                 }
             </td>
             <td>
@@ -18,13 +19,15 @@
                         <h5>@advertisement.Title</h5>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <div>@advertisement.Location - @advertisement.DateOfPublication.ToString("f")</div>
-                        <div>Dodane przez @advertisement.User?.Nickname</div>
+                        <div><strong>@advertisement.Location</strong> - @advertisement.DateOfPublication.ToString("f")</div>
+                        <div class="table-nickname-caption d-flex align-items-end">Dodane przez: @advertisement.User?.Nickname</div>
                     </div>
                 </div>
             </td>
             <td class="fit">
-                @advertisement.Price.ToString("0.00") zł
+                <div class="fs-6 h-100 d-flex flex-column justify-content-start">
+                    <strong>@advertisement.Price.ToString("0.00") zł</strong>
+                </div>                
             </td>
         </tr>
     }
