@@ -1,12 +1,60 @@
-﻿
-@model AdvertisementsViewModel
+﻿@model AdvertisementsViewModel
 
 @{
     ViewData["Title"] = "Ogłoszenia";
 }
 
-<h1>Ogłoszenia</h1>
+<h1 class="mb-4">Ogłoszenia</h1>
 
+
+<form id="filterForm" class="gy-2 gx-3 align-items-center mb-4">
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        <div class="col-auto">
+            @Html.TextBoxFor(x => x.FilterAdvertisements.Text,
+            new { @class="form-control form-control mb-2",
+            placeholder = "Wpisz poszukiwaną frazę..." })
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Szukaj</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <label class="form-label">Cena:</label>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-auto">
+            @Html.TextBoxFor(x => x.FilterAdvertisements.PriceFrom,
+                           new { @class="form-control", placeholder="Od"} )
+        </div>
+        <div class="col-auto">
+            @Html.TextBoxFor(x => x.FilterAdvertisements.PriceTo,
+                               new { @class="form-control", placeholder="Do"} )
+         </div>  
+    </div>
+    <div class="row">
+        <div class="col-auto d-flex flex-wrap">
+            @foreach (var category in Model.FilterAdvertisements.Categories)
+            {
+                <div class="me-3 mb-2">
+                    @Html.HiddenFor(x => category.CategoryId)
+
+                    @Html.CheckBoxFor(x => category.IsSelected,
+                                      new { @class="form-check-input" })
+
+                    @Html.LabelFor(x => category,
+                                   category.CategoryName,
+                                   new { @class="form-check-label"} )
+                </div>
+
+                
+            }
+        </div>
+    </div>
+</form>
 
 <div class="container-fluid">
     <div class="row">

@@ -5,13 +5,13 @@ namespace AdvertisingPortal.Core.ViewModels
 {
     public class AdvertisementsViewModel
     {
-        public AdvertisementsViewModel(FilterAdvertisements filter, IEnumerable<Advertisement> advertisements)
+        public AdvertisementsViewModel(FilterAdvertisements filterAdvertisements, IEnumerable<Advertisement> advertisements)
         {
-            Filter = filter;
+            FilterAdvertisements = filterAdvertisements;
             Advertisements = advertisements;
         }
 
-        public FilterAdvertisements Filter { get; set; }
+        public FilterAdvertisements FilterAdvertisements { get; set; }
         public IEnumerable<Advertisement> Advertisements { get; set; }
     }
 }

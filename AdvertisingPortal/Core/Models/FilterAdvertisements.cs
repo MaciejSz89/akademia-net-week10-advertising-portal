@@ -1,6 +1,7 @@
 ﻿using AdvertisingPortal.Core.Models.Domains;
 using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace AdvertisingPortal.Core.Models
 {
@@ -8,10 +9,13 @@ namespace AdvertisingPortal.Core.Models
     {
         public FilterAdvertisements()
         {
-            CategoryIds = new Collection<int>();
+            Categories = new Collection<FilterCategory>();
         }
         public string? Text { get; set; }
 
-        public ICollection<int> CategoryIds { get; set; }
+        public ICollection<FilterCategory> Categories { get; set; }
+
+        public decimal? PriceFrom { get; set; }
+        public decimal? PriceTo { get; set;}
     }
 }
