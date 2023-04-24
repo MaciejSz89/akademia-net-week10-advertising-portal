@@ -1,4 +1,5 @@
-﻿@model AdvertisementsViewModel
+﻿@using AdvertisingPortal.Core.Models;
+@model AdvertisementsViewModel
 
 @{
     ViewData["Title"] = "Ogłoszenia";
@@ -15,6 +16,12 @@
             @Html.TextBoxFor(x => x.FilterAdvertisements.Text,
             new { @class="form-control form-control mb-2",
             placeholder = "Wpisz poszukiwaną frazę..." })
+        </div>
+        <div class="col-auto">
+            @Html.DropDownListFor(x => x.SortAdvertisements,
+                                  Html.GetEnumSelectList<SortAdvertisements>(),
+                                  null,
+                                  new { @class = "form-control mb-2" })
         </div>
         <div class="col-auto">
             <button type="submit" class="btn btn-primary">Szukaj</button>
@@ -36,6 +43,11 @@
          </div>  
     </div>
     <div class="row">
+        <div class="col-auto">
+            <label class="form-label">Kategorie:</label>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-auto d-flex flex-wrap">
             @foreach (var category in Model.FilterAdvertisements.Categories)
             {
@@ -54,12 +66,28 @@
             }
         </div>
     </div>
+    
 </form>
 
 <div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-12 d-flex justify-content-end">
+            <button class="btn btn-sm btn-link" onclick="displayTable()">
+                <i class="bi bi-table"></i>
+            </button>
+            <button class="btn btn-sm" onclick="displayCards()">
+                <i class="bi bi-grid"></i>
+            </button>          
+        </div>
+    </div>
     <div class="row">
-        <div class="col-12 advertise-table-partial">
+        <div class="col-12 advertisements-partial">
             @await Html.PartialAsync("_AdvertisementsTable", Model.Advertisements)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 advertisements-partial">
+            @await Html.PartialAsync("_AdvertisementsCards", Model.Advertisements)
         </div>
     </div>
 </div>

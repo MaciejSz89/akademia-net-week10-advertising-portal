@@ -13,5 +13,6 @@ namespace AdvertisingPortal.Core.ViewModels
 
         public FilterAdvertisements FilterAdvertisements { get; set; }
         public IEnumerable<Advertisement> Advertisements { get; set; }
+        public SortAdvertisements SortAdvertisements { get; set; }
     }
 }
