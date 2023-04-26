@@ -14,6 +14,8 @@ namespace AdvertisingPortal.Controllers
     public class AdvertisementController : Controller
     {
         private IWebHostEnvironment Environment;
+
+
         public AdvertisementController(IWebHostEnvironment _environment)
         {
             Environment = _environment;
@@ -286,5 +288,198 @@ namespace AdvertisingPortal.Controllers
 
             return View(vm);
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult AdvertisementsTable()
+        {
+            var advertisements = new List<Advertisement>
+            {
+                new Advertisement("jndafkjfd0")
+                {
+                    User = new ApplicationUser("Adam"),
+                    Category = new Category("Meble"),
+                    Title = "Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa ",
+                    Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = true
+                        }
+                    },
+                    Price = 3000.0M,
+                    DateOfPublication= DateTime.Now,
+                    Location = "Wiry"
+
+                },
+                new Advertisement("jndafkjfd0")
+                {
+                    User = new ApplicationUser("Adam"),
+                    Category = new Category("Meble"),
+                    Title = "Sprzedam laptopa",
+                    Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = true
+                        }
+                    },
+                    Price = 3000.0M,
+                    DateOfPublication= DateTime.Now,
+                    Location = "Wiry"
+
+                },
+                new Advertisement("jndafkjfd0")
+                {
+                    User = new ApplicationUser("Adam"),
+                    Category = new Category("Meble"),
+                    Title = "Sprzedam laptopa",
+                    Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = true
+                        }
+                    },
+                    Price = 3000.0M,
+                    DateOfPublication= DateTime.Now,
+                    Location = "Wiry"
+
+                },
+                new Advertisement("jndafkjfd0")
+                {
+                    User = new ApplicationUser("Adam"),
+                    Category = new Category("Meble"),
+                    Title = "Sprzedam laptopa",
+                    Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = true
+                        }
+                    },
+                    Price = 3000.0M,
+                    DateOfPublication= DateTime.Now,
+                    Location = "Wiry"
+
+                },
+                new Advertisement("jndafkjfd0")
+                {
+                    User = new ApplicationUser("Adam"),
+                    Category = new Category("Meble"),
+                    Title = "Sprzedam laptopa",
+                    Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = true
+                        }
+                    },
+                    Price = 3000.0M,
+                    DateOfPublication= DateTime.Now,
+                    Location = "Wiry"
+
+                }
+            };
+
+            return PartialView("_AdvertisementsTable", advertisements);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult AdvertisementsCards()
+        {
+            var advertisements = new List<Advertisement>
+            {
+                new Advertisement("jndafkjfd0")
+                {
+                    User = new ApplicationUser("Adam"),
+                    Category = new Category("Meble"),
+                    Title = "Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa",
+                    Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = true
+                        }
+                    },
+                    Price = 3000.0M,
+                    DateOfPublication= DateTime.Now,
+                    Location = "Wiry"
+
+                },
+                new Advertisement("jndafkjfd0")
+                {
+                    User = new ApplicationUser("Adam"),
+                    Category = new Category("Meble"),
+                    Title = "Sprzedam laptopa",
+                    Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = true
+                        }
+                    },
+                    Price = 3000.0M,
+                    DateOfPublication= DateTime.Now,
+                    Location = "Wiry"
+
+                },
+                new Advertisement("jndafkjfd0")
+                {
+                    User = new ApplicationUser("Adam"),
+                    Category = new Category("Meble"),
+                    Title = "Sprzedam laptopa",
+                    Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = true
+                        }
+                    },
+                    Price = 3000.0M,
+                    DateOfPublication= DateTime.Now,
+                    Location = "Wiry"
+
+                },
+                new Advertisement("jndafkjfd0")
+                {
+                    User = new ApplicationUser("Adam"),
+                    Category = new Category("Meble"),
+                    Title = "Sprzedam laptopa",
+                    Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = true
+                        }
+                    },
+                    Price = 3000.0M,
+                    DateOfPublication= DateTime.Now,
+                    Location = "Wiry"
+
+                },
+                new Advertisement("jndafkjfd0")
+                {
+                    User = new ApplicationUser("Adam"),
+                    Category = new Category("Meble"),
+                    Title = "Sprzedam laptopa",
+                    Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = true
+                        }
+                    },
+                    Price = 3000.0M,
+                    DateOfPublication= DateTime.Now,
+                    Location = "Wiry"
+
+                }
+            };
+
+            return PartialView("_AdvertisementsCards", advertisements);
+        }
+
     }
 }

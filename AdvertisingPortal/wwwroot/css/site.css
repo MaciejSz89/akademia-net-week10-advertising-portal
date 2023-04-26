@@ -50,8 +50,8 @@ td{
 
 .card .backgroundEffect {
     bottom: 0;
-    height: 0px;
-    width: 100%
+    height: inherit;
+    width: 100%;
 }
 
 .card:hover {

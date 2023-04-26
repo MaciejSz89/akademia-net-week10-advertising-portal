@@ -72,22 +72,57 @@
 <div class="container-fluid">
     <div class="row mb-3">
         <div class="col-12 d-flex justify-content-end">
-            <button class="btn btn-sm btn-link" onclick="displayTable()">
+            <button id="btnTableView" class="btn btn-sm btn-link" onclick="displayTable()">
                 <i class="bi bi-table"></i>
             </button>
-            <button class="btn btn-sm" onclick="displayCards()">
+            <button id="btnCardsView" class="btn btn-sm" onclick="displayCards()">
                 <i class="bi bi-grid"></i>
             </button>          
         </div>
     </div>
     <div class="row">
-        <div class="col-12 advertisements-partial">
+        <div id="advertisements-partial" class="col-12">
             @await Html.PartialAsync("_AdvertisementsTable", Model.Advertisements)
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 advertisements-partial">
-            @await Html.PartialAsync("_AdvertisementsCards", Model.Advertisements)
-        </div>
-    </div>
 </div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function displayTable(){
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AdvertisementsTable", "Advertisement")',
+                data: {},
+                success: function (data) {
+                    $('#advertisements-partial').html(data);
+                    $('#btnTableView').addClass('btn-link');
+                    $('#btnCardsView').removeClass('btn-link');
+                },
+                error: function(data){
+                    alert(data.message);
+                },
+                dataType: 'html'
+            });         
+        }
+
+        function displayCards(){
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AdvertisementsCards", "Advertisement")',
+                data: {},
+                success: function(data){
+                    $('#advertisements-partial').html(data);            
+                    $('#btnCardsView').addClass('btn-link');
+                    $('#btnTableView').removeClass('btn-link');
+                },
+                error: function(data){
+                    alert(data.message);
+                },
+                dataType: 'html'
+            });
+        }
+    </script>
+}
