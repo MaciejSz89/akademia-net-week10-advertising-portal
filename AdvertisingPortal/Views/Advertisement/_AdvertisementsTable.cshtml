@@ -6,12 +6,13 @@
 <table class="table table-bordered table-stripped table-hover">
     @foreach (var advertisement in Model)
     {
-        <tr style="cursor:pointer;height:100px;" >
-            <td style="width:100px;">
+        <tr >
+            <td class="td-img-thumbnail" >
                 @if (advertisement.Pictures != null && advertisement.Pictures.Any())
                 {
-                    <img class="h-100 img-thumbnail" 
-                         src="data:image;base64,@System.Convert.ToBase64String(advertisement.Pictures.Single(x=>x.IsMainPicture).Image)" />
+                    <div>
+                        <img src="data:image;base64,@System.Convert.ToBase64String(advertisement.Pictures.Single(x=>x.IsMainPicture).Image)" />
+                    </div>
                 }
             </td>
             <td>

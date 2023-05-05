@@ -481,5 +481,64 @@ namespace AdvertisingPortal.Controllers
             return PartialView("_AdvertisementsCards", advertisements);
         }
 
+
+        [AllowAnonymous]
+        public IActionResult ViewAdvertisement()
+        {
+            var advertisement = new Advertisement("jfsdkjfn")
+            {
+                User = new ApplicationUser("Adam"),
+                Category = new Category("Meble"),
+                Title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+                Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = true
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        {
+                            IsMainPicture = false
+                        }
+                    },
+                Price = 3000.0M,
+                DateOfPublication = DateTime.Now,
+                Location = "Wiry"
+            };
+
+            return View(advertisement);
+        }
     }
 }

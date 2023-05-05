@@ -69,3 +69,52 @@ td{
     background: #1b9ce3;
     animation: popBackground 0.3s ease-in
 }
+
+.carousel-inner{
+    height: 700px;
+    background-color: lightgray;
+}
+
+.carousel-item{
+    height: 100%;
+}
+
+button.img-thumbnail {
+    height: 100px !important;
+    width: 200px !important;
+    display: flex;
+    justify-content: center;
+    background-color: lightgray !important;
+}
+
+.table tr {
+    cursor:pointer;
+    height:100px;
+}
+
+.td-img-thumbnail{
+    height: inherit!important;
+    width: 200px;
+}
+.td-img-thumbnail div{
+    width: inherit!important;
+    height: inherit!important;
+    display: flex;
+    justify-content: center
+}
+
+.card {
+    width: 18rem;
+}
+
+.card-img-top {
+    display: flex;
+    justify-content: center;
+    background-color: lightgray;
+    height: 180px!important;
+}
+
+.card-img-top img {
+    height: 100%!important;
+}
+
