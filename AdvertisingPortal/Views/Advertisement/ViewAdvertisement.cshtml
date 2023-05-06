@@ -5,9 +5,10 @@
     ViewData["Title"] = Model.Title;
 }
 
-<h3 class="mb-4">@Model.Title</h3>
 <div class="container">
-    <div class="row">
+
+  
+    <div class="row mb-4">
         <div id="carouselPictures" class="col-12 carousel slide d-flex flex-column" data-bs-ride="carousel">
             <div>
                 <div class="carousel-inner">
@@ -62,7 +63,35 @@
             </div>
         </div>
     </div>
+    <div class="row mb-3">
+        <div class="col-12 fs-2 fw-bold">
+            @Model.Title
+        </div>
+    </div>
+    <div class="row mb-3 fw-bold">
+        <div class="col-12 fs-1">
+            @Model.Price.ToString("0.00") zł
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-5 fs-4">
+            @Model.Location - @Model.DateOfPublication.ToString("f")
+            
+        </div>
+        <div class="col-4">
 
+        </div>
+        <div class="col-3 text-end fs-4">
+            Dodane przez <a class="text-decoration-none link-dark fw-bold">@Model.User?.Nickname</a>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-12">
+            <p class="fs-5 text-justify">
+                @Model.Description
+            </p>
+        </div>
+    </div>
 </div>
 
 

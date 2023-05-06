@@ -118,3 +118,10 @@ button.img-thumbnail {
     height: 100%!important;
 }
 
+a{
+    cursor: pointer;
+}
+
+.text-justify{
+    text-align: justify;
+}
