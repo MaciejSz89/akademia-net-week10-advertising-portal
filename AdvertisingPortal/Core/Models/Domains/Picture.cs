@@ -1,12 +1,13 @@
-﻿namespace AdvertisingPortal.Core.Models.Domains
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AdvertisingPortal.Core.Models.Domains
 {
     public class Picture
     {
 
-        public Picture(byte[] image, string userId)
+        public Picture(byte[] image)
         {
             Image = image;
-            UserId = userId;
         }
 
         public int Id { get; set; }
@@ -17,7 +18,8 @@
 
         public int AdvertisementId { get; set; }
 
-        public string UserId { get; set; }
+        [Required]
+        public string? UserId { get; set; }
 
         public Advertisement? Advertisement { get; set; }
         public ApplicationUser? User { get; set; }

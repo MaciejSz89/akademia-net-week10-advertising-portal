@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -6,16 +7,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdvertisingPortal.Core.Models.Domains
 {
-
-    [AllowAnonymous]
+    [Index(nameof(Advertisement.IdentificationNumber), IsUnique = true)]
     public class Advertisement
     {
-        public Advertisement(string userId)
+        public Advertisement()
         {
             Pictures = new Collection<Picture>();
-            UserId = userId;
         }
         public int Id { get; set; }
+
+        [MaxLength(30)]
+        [RegularExpression("^[0-9]*$")]
+        [Required]
+        public string? IdentificationNumber { get; set; }
+
 
         [Display(Name = "Tytuł")]
         [Required(ErrorMessage = "Pole Tytuł jest wymagane")]
@@ -41,7 +46,8 @@ namespace AdvertisingPortal.Core.Models.Domains
         [Required(ErrorMessage = "Pole Kategoria jest wymagane")]
         public int CategoryId { get; set; }
 
-        public string UserId { get; set; }
+        [Required]
+        public string? UserId { get; set; }
 
         public Category? Category { get; set; }
         public ApplicationUser? User { get; set; }

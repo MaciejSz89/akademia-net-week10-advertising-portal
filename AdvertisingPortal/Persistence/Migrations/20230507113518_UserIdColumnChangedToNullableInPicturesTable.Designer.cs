@@ -4,6 +4,7 @@ using AdvertisingPortal.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdvertisingPortal.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230507113518_UserIdColumnChangedToNullableInPicturesTable")]
+    partial class UserIdColumnChangedToNullableInPicturesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,11 +42,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdentificationNumber")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -63,9 +60,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("IdentificationNumber")
-                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -108,7 +102,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -369,8 +362,7 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.HasOne("AdvertisingPortal.Core.Models.Domains.ApplicationUser", "User")
                         .WithMany("Pictures")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Advertisement");
 

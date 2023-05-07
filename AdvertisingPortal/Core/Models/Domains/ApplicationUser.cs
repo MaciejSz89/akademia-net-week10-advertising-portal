@@ -10,6 +10,7 @@ namespace AdvertisingPortal.Core.Models.Domains
         public ApplicationUser(string nickname)
         {
             Advertisements = new Collection<Advertisement>();
+            Pictures = new Collection<Picture>();
             Nickname = nickname;
         }
 
@@ -19,6 +20,8 @@ namespace AdvertisingPortal.Core.Models.Domains
         public string Nickname { get; set; }
 
         public ICollection<Advertisement> Advertisements { get; set; }
+        public ICollection<Picture> Pictures { get; set; }
+
 
     }
 }

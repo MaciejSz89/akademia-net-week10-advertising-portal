@@ -74,8 +74,7 @@ namespace AdvertisingPortal.Persistence.Migrations
                     Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     IsMainPicture = table.Column<bool>(type: "bit", nullable: false),
                     AdvertisementId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -87,8 +86,8 @@ namespace AdvertisingPortal.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Pictures_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Pictures_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -109,9 +108,9 @@ namespace AdvertisingPortal.Persistence.Migrations
                 column: "AdvertisementId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pictures_UserId1",
+                name: "IX_Pictures_UserId",
                 table: "Pictures",
-                column: "UserId1");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

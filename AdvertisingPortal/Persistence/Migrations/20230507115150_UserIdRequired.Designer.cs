@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdvertisingPortal.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230417192641_Advertisement Place column changed to Location")]
-    partial class AdvertisementPlacecolumnchangedtoLocation
+    [Migration("20230507115150_UserIdRequired")]
+    partial class UserIdRequired
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,6 +42,11 @@ namespace AdvertisingPortal.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IdentificationNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -54,11 +59,15 @@ namespace AdvertisingPortal.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("IdentificationNumber")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -94,22 +103,21 @@ namespace AdvertisingPortal.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<byte[]>("Image")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("IsMainPicture")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AdvertisementId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Pictures");
                 });
@@ -343,7 +351,9 @@ namespace AdvertisingPortal.Persistence.Migrations
 
                     b.HasOne("AdvertisingPortal.Core.Models.Domains.ApplicationUser", "User")
                         .WithMany("Advertisements")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
@@ -359,8 +369,10 @@ namespace AdvertisingPortal.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("AdvertisingPortal.Core.Models.Domains.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
+                        .WithMany("Pictures")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Advertisement");
 
@@ -431,6 +443,8 @@ namespace AdvertisingPortal.Persistence.Migrations
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.ApplicationUser", b =>
                 {
                     b.Navigation("Advertisements");
+
+                    b.Navigation("Pictures");
                 });
 #pragma warning restore 612, 618
         }

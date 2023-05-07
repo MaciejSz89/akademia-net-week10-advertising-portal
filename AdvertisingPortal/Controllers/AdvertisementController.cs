@@ -28,14 +28,14 @@ namespace AdvertisingPortal.Controllers
 
             var advertisements = new List<Advertisement>
             {
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -45,14 +45,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -62,14 +62,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -79,14 +79,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -96,14 +96,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -295,14 +295,14 @@ namespace AdvertisingPortal.Controllers
         {
             var advertisements = new List<Advertisement>
             {
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa ",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -312,14 +312,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -329,14 +329,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -346,14 +346,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -363,14 +363,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -391,14 +391,14 @@ namespace AdvertisingPortal.Controllers
         {
             var advertisements = new List<Advertisement>
             {
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -408,14 +408,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -425,14 +425,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -442,14 +442,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -459,14 +459,14 @@ namespace AdvertisingPortal.Controllers
                     Location = "Wiry"
 
                 },
-                new Advertisement("jndafkjfd0")
+                new Advertisement()
                 {
                     User = new ApplicationUser("Adam"),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         }
@@ -485,7 +485,7 @@ namespace AdvertisingPortal.Controllers
         [AllowAnonymous]
         public IActionResult ViewAdvertisement()
         {
-            var advertisement = new Advertisement("jfsdkjfn")
+            var advertisement = new Advertisement()
             {
                 User = new ApplicationUser("Adam"),
                 Category = new Category("Meble"),
@@ -493,43 +493,43 @@ namespace AdvertisingPortal.Controllers
                 Title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
                 Pictures = new List<Picture>
                     {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = true
                         },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = false
                         },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = false
                         },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = false
                         },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = false
                         },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = false
                         },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = false
                         },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = false
                         },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = false
                         },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"), "jndafkjfd0")
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
                         {
                             IsMainPicture = false
                         }
