@@ -4,6 +4,7 @@ using AdvertisingPortal.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdvertisingPortal.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230507122705_AdRecepientRequired")]
+    partial class AdRecepientRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,42 +112,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.HasIndex("AdvertiserId");
 
                     b.ToTable("Conversations");
-                });
-
-            modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ConversationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ReceiverId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("SendTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SenderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConversationId");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Picture", b =>
@@ -434,33 +400,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.Navigation("Advertiser");
                 });
 
-            modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Message", b =>
-                {
-                    b.HasOne("AdvertisingPortal.Core.Models.Domains.Conversation", "Conversation")
-                        .WithMany("Messages")
-                        .HasForeignKey("ConversationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AdvertisingPortal.Core.Models.Domains.ApplicationUser", "Receiver")
-                        .WithMany("MessagesAsReceiver")
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("AdvertisingPortal.Core.Models.Domains.ApplicationUser", "Sender")
-                        .WithMany("MessagesAsSender")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Conversation");
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
-                });
-
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Picture", b =>
                 {
                     b.HasOne("AdvertisingPortal.Core.Models.Domains.Advertisement", "Advertisement")
@@ -541,11 +480,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.Navigation("Advertisements");
                 });
 
-            modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Conversation", b =>
-                {
-                    b.Navigation("Messages");
-                });
-
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.ApplicationUser", b =>
                 {
                     b.Navigation("Advertisements");
@@ -553,10 +487,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.Navigation("ConversationsAsAdRecepient");
 
                     b.Navigation("ConversationsAsAdvertiser");
-
-                    b.Navigation("MessagesAsReceiver");
-
-                    b.Navigation("MessagesAsSender");
 
                     b.Navigation("Pictures");
                 });

@@ -4,6 +4,7 @@ using AdvertisingPortal.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdvertisingPortal.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230507123825_MessagesTableAdded")]
+    partial class MessagesTableAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,9 +125,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ConversationId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ReceiverId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -138,8 +137,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ConversationId");
 
                     b.HasIndex("ReceiverId");
 
@@ -436,12 +433,6 @@ namespace AdvertisingPortal.Persistence.Migrations
 
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Message", b =>
                 {
-                    b.HasOne("AdvertisingPortal.Core.Models.Domains.Conversation", "Conversation")
-                        .WithMany("Messages")
-                        .HasForeignKey("ConversationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AdvertisingPortal.Core.Models.Domains.ApplicationUser", "Receiver")
                         .WithMany("MessagesAsReceiver")
                         .HasForeignKey("ReceiverId")
@@ -453,8 +444,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Conversation");
 
                     b.Navigation("Receiver");
 
@@ -539,11 +528,6 @@ namespace AdvertisingPortal.Persistence.Migrations
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Category", b =>
                 {
                     b.Navigation("Advertisements");
-                });
-
-            modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Conversation", b =>
-                {
-                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.ApplicationUser", b =>
