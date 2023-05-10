@@ -7,7 +7,7 @@ namespace AdvertisingPortal.Core.Models.Domains
     public class ApplicationUser : IdentityUser
     {
 
-        public ApplicationUser(string nickname)
+        public ApplicationUser()
         {
             Advertisements = new Collection<Advertisement>();
             Pictures = new Collection<Picture>();
@@ -15,13 +15,7 @@ namespace AdvertisingPortal.Core.Models.Domains
             ConversationsAsAdRecepient = new Collection<Conversation>();
             MessagesAsSender = new Collection<Message>();
             MessagesAsReceiver = new Collection<Message>();
-            Nickname = nickname;
         }
-
-
-        [Display(Name = "Nazwa")]
-        [Required(ErrorMessage = "Pole Nazwa jest wymagane")]
-        public string Nickname { get; set; }
 
         public ICollection<Advertisement> Advertisements { get; set; }
         public ICollection<Picture> Pictures { get; set; }

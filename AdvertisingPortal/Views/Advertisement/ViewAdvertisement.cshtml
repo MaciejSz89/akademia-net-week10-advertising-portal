@@ -82,7 +82,7 @@
 
         </div>
         <div class="col-3 text-end fs-4">
-            Dodane przez <a class="text-decoration-none link-dark fw-bold">@Model.User?.Nickname</a>
+            Dodane przez <a class="text-decoration-none link-dark fw-bold">@Model.User?.UserName</a>
         </div>
     </div>
     <div class="row mb-4">
@@ -90,6 +90,13 @@
             <p class="fs-5 text-justify">
                 @Model.Description
             </p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-12 d-flex justify-content-end">
+            <button class="btn btn-primary btn-lg">
+                Napisz wiadomość
+            </button>
         </div>
     </div>
 </div>
