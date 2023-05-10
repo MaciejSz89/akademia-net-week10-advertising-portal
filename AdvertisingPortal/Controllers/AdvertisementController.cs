@@ -30,7 +30,10 @@ namespace AdvertisingPortal.Controllers
             {
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser
+                    { 
+                        UserName = "Adam" 
+                    },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -47,7 +50,10 @@ namespace AdvertisingPortal.Controllers
                 },
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser
+                    {
+                        UserName = "Adam" 
+                    },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -64,7 +70,10 @@ namespace AdvertisingPortal.Controllers
                 },
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser
+                    {
+                        UserName = "Adam" 
+                    },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -81,7 +90,10 @@ namespace AdvertisingPortal.Controllers
                 },
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser
+                    {
+                        UserName = "Kamil"
+                    },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -98,7 +110,10 @@ namespace AdvertisingPortal.Controllers
                 },
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser
+                    {
+                        UserName = "Adam"
+                    },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -297,7 +312,7 @@ namespace AdvertisingPortal.Controllers
             {
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser{ UserName = "Adam" },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa ",
                     Pictures = new List<Picture>
@@ -314,7 +329,24 @@ namespace AdvertisingPortal.Controllers
                 },
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser{ UserName = "Adam" },
+                    Category = new Category("Meble"),
+                    Title = "Sprzedam laptopa",
+                    Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+                        {
+                            IsMainPicture = true
+                        }
+                    },
+                    Price = 3000.0M,
+                    DateOfPublication= DateTime.Now,
+                    Location = "Wiry"
+
+                },
+                new Advertisement()
+                {   
+                    User = new ApplicationUser{ UserName = "Adam" },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -331,7 +363,7 @@ namespace AdvertisingPortal.Controllers
                 },
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser{ UserName = "Adam" },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -348,24 +380,7 @@ namespace AdvertisingPortal.Controllers
                 },
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
-                    Category = new Category("Meble"),
-                    Title = "Sprzedam laptopa",
-                    Pictures = new List<Picture>
-                    {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
-                        {
-                            IsMainPicture = true
-                        }
-                    },
-                    Price = 3000.0M,
-                    DateOfPublication= DateTime.Now,
-                    Location = "Wiry"
-
-                },
-                new Advertisement()
-                {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser{ UserName = "Adam" },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -393,7 +408,7 @@ namespace AdvertisingPortal.Controllers
             {
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser(),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -410,7 +425,7 @@ namespace AdvertisingPortal.Controllers
                 },
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser(),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -427,7 +442,7 @@ namespace AdvertisingPortal.Controllers
                 },
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser(),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -444,7 +459,7 @@ namespace AdvertisingPortal.Controllers
                 },
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser(),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -461,7 +476,7 @@ namespace AdvertisingPortal.Controllers
                 },
                 new Advertisement()
                 {
-                    User = new ApplicationUser("Adam"),
+                    User = new ApplicationUser(),
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
                     Pictures = new List<Picture>
@@ -487,7 +502,7 @@ namespace AdvertisingPortal.Controllers
         {
             var advertisement = new Advertisement()
             {
-                User = new ApplicationUser("Adam"),
+                User = new ApplicationUser(),
                 Category = new Category("Meble"),
                 Description = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
                 Title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
@@ -540,6 +555,24 @@ namespace AdvertisingPortal.Controllers
             };
 
             return View(advertisement);
+        }
+
+        public IActionResult CreateAdvertisement(int id = 0)
+        {
+            var advertisement = new Advertisement();
+
+            var heading = "Dodawanie ogłoszenia";
+
+            var categories = new List<Category>
+            {
+                new Category("Meble"),
+                new Category("Zwierzęta"),
+                new Category("Ogród")
+            };
+
+            var vm = new CreateAdvertisementViewModel(advertisement, categories, heading);
+
+            return View(vm);
         }
     }
 }

@@ -1,0 +1,62 @@
+﻿@model CreateAdvertisementViewModel
+
+@{
+    ViewData["Title"] = Model.Advertisement;
+}
+
+<h2>@Model.Advertisement</h2>
+
+<p class="alert alert-info mt-4 mb-4">
+    Pola tytuł, miejscowość, kategoria i opis są <strong>wymagane</strong>
+</p>
+
+<div class="row">
+    <div class="col-lg-6">
+        @using (Html.BeginForm("CreateMessage", "Message", FormMethod.Post, new { id = "create-advertisement-form", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group mb-2">
+                @Html.LabelFor(x => x.Advertisement.Title)
+                @Html.TextBoxFor(x => x.Advertisement.Title, 
+                                  new { @class = "form-control"})
+                @Html.ValidationMessageFor(x => x.Advertisement.Title,
+                                           "",
+                                           new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group mb-2">
+                @Html.LabelFor(x => x.Advertisement.Location)
+                @Html.TextBoxFor(x => x.Advertisement.Location, 
+                                  new { @class = "form-control"})
+                @Html.ValidationMessageFor(x => x.Advertisement.Location,
+                                           "",
+                                           new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group mb-2">
+                @Html.LabelFor(x => x.Advertisement.CategoryId,
+                       new { @class="form-label" })
+                @Html.DropDownListFor(x => x.Advertisement.CategoryId,
+                                      new SelectList(Model.Categories, "Id", "Name"),
+                                      "---wybierz kategorię---",
+                                      new { @class = "form-select" })
+                @Html.ValidationMessageFor(x => x.Advertisement.CategoryId)
+            </div>
+
+            <div class="form-group mb-2">
+                @Html.LabelFor(x => x.Advertisement.Description)
+                @Html.TextAreaFor(x => x.Advertisement.Description, 
+                                  new { @class = "form-control"})
+                @Html.ValidationMessageFor(x => x.Advertisement.Description,
+                                           "",
+                                           new { @class = "text-danger" })
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg mt-2">Zapisz</button>
+
+            <button type="submit" class="btn btn-secondary btn-lg mt-2" onclick="window.location.href='@Url.Action("Advertisements","Advertisement")'">Anuluj</button>
+
+        }
+    </div>
+</div>
