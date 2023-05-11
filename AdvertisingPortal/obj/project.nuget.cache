@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5Me0evclX8vYwgKRZqB43tvr0VPwlIJytSUEyQEA2nxJvVRYxaUFLyA8TyEXaRykgZ40aMM8BU+gAsLLlgR7rg==",
+  "dgSpecHash": "8CrKiKLLQIPUdSusGHF/C49sq2HABT1t80bZ8IgS4ZxQggpo5TemWzM10Fjd8t4xLXAv9u3uaJGRb9kXJY1oQg==",
   "success": true,
-  "projectFilePath": "D:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\AdvertisingPortal.csproj",
+  "projectFilePath": "E:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\AdvertisingPortal.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maciej.szafranski\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\maciej.szafranski\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

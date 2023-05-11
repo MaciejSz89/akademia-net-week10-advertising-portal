@@ -10465,11 +10465,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\AdvertisingPortal.csproj",
+      "projectUniqueName": "E:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\AdvertisingPortal.csproj",
       "projectName": "AdvertisingPortal",
-      "projectPath": "D:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\AdvertisingPortal.csproj",
+      "projectPath": "E:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\AdvertisingPortal.csproj",
       "packagesPath": "C:\\Users\\maciej.szafranski\\.nuget\\packages\\",
-      "outputPath": "D:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\obj\\",
+      "outputPath": "E:\\Maciej\\Programowanie\\Akademia .NET\\Week10\\AdvertisingPortal\\AdvertisingPortal\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

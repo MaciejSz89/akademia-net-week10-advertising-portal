@@ -15,8 +15,10 @@ namespace AdvertisingPortal.Core.Models.Domains
         public byte[] Image { get; set; }
 
         public bool IsMainPicture { get; set; }
-
-        public int AdvertisementId { get; set; }
+        
+        [Required]
+        public string? FileName { get; set; }
+        public int AdvertisementId { get; set; }       
 
         [Required]
         public string? UserId { get; set; }

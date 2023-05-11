@@ -159,6 +159,10 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.Property<int>("AdvertisementId")
                         .HasColumnType("int");
 
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<byte[]>("Image")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");

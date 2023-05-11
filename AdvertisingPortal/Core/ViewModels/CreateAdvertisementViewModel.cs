@@ -1,4 +1,7 @@
 ﻿using AdvertisingPortal.Core.Models.Domains;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace AdvertisingPortal.Core.ViewModels
 {
@@ -14,6 +17,7 @@ namespace AdvertisingPortal.Core.ViewModels
         public Advertisement Advertisement { get; set; }
 
         public IEnumerable<Category> Categories { get; set; }
+
 
         public string Heading { get; set; }
     }

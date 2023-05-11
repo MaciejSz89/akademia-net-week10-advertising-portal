@@ -125,3 +125,7 @@ a{
 .text-justify{
     text-align: justify;
 }
+
+textarea{
+    height: 400px;
+}

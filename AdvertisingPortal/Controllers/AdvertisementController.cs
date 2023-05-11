@@ -559,15 +559,69 @@ namespace AdvertisingPortal.Controllers
 
         public IActionResult CreateAdvertisement(int id = 0)
         {
-            var advertisement = new Advertisement();
+            var advertisement = new Advertisement()
+            {
+                Pictures = new List<Picture>
+                    {
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+                        {
+                            IsMainPicture = true
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+                        {
+                            IsMainPicture = false
+                        },
+                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+                        {
+                            IsMainPicture = false
+                        }
+                    }
+            };
 
             var heading = "Dodawanie ogłoszenia";
 
             var categories = new List<Category>
             {
-                new Category("Meble"),
-                new Category("Zwierzęta"),
+                new Category("Meble")
+                {
+                    Id = 1
+                },
+                new Category("Zwierzęta")
+                {
+                    Id = 2
+                },
                 new Category("Ogród")
+                {
+                    Id = 3
+                }
             };
 
             var vm = new CreateAdvertisementViewModel(advertisement, categories, heading);
