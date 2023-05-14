@@ -19,6 +19,8 @@
             {
                 @Html.AntiForgeryToken()
 
+                @Html.HiddenFor(x => x.Advertisement.UserId)
+
                 <div class="form-group mb-2">
                     @Html.LabelFor(x => x.Advertisement.Title,
                                    new { @class="form-label" })
@@ -59,28 +61,31 @@
                                                new { @class = "text-danger" })
                 </div>
 
-     
 
-         
-                <div class="form-group mb-2">
-                    <div class="row">
-                        <label class="mb-1">Przesłane zdjęcia</label>
-                        @foreach (var picture in Model.Advertisement.Pictures)
-                        {
-                            <div class="col-md-3 mb-2">
-                                <img src="data:image;base64,@System.Convert.ToBase64String(picture.Image)" class="img-thumbnail" />
 
-                                <div class="text-center">
-                                    <input type="radio" name="mainPicture" value="@picture.Id" checked="@picture.IsMainPicture" /> Główne
+                @if (Model.Advertisement.Pictures != null && Model.Advertisement.Pictures.Any())
+                {
+                    <div class="form-group mb-2">
+                        <div class="row">
+                            <label class="mb-1">Przesłane zdjęcia</label>
+                            @foreach (var picture in Model.Advertisement.Pictures)
+                            {
+                                <div class="col-md-3 mb-2">
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(picture.Image)" class="img-thumbnail" />
+
+                                    <div class="text-center">
+                                        <input type="radio" name="mainPicture" value="@picture.Id" checked="@picture.IsMainPicture" /> Główne
+                                    </div>
+
+                                    <div class="text-center">
+                                        <input type="checkbox" name="deletedPictures" value="@picture.Id" /> Usuń
+                                    </div>
                                 </div>
-
-                                <div class="text-center">
-                                    <input type="checkbox" name="deletedPictures" value="@picture.Id" /> Usuń
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
+                }
+
 
 
                 <div class="form-group mb-2">
@@ -88,9 +93,12 @@
                     <input type="file" name="images" id="images" multiple class="form-control" />
                 </div>
 
-                @foreach (var picture in Model.Advertisement.Pictures)
+                @if (Model.Advertisement.Pictures != null && Model.Advertisement.Pictures.Any())
                 {
-                    <input type="hidden" name="deletedPictures" value="@picture.Id" />
+                    @foreach (var picture in Model.Advertisement.Pictures)
+                    {
+                        <input type="hidden" name="deletedPictures" value="@picture.Id" />
+                    }
                 }
 
 

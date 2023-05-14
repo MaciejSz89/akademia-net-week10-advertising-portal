@@ -11,16 +11,12 @@ namespace AdvertisingPortal.Core.Models.Domains
         {
             Advertisements = new Collection<Advertisement>();
             Pictures = new Collection<Picture>();
-            ConversationsAsAdvertiser = new Collection<Conversation>();
-            ConversationsAsAdRecepient = new Collection<Conversation>();
             MessagesAsSender = new Collection<Message>();
             MessagesAsReceiver = new Collection<Message>();
         }
 
         public ICollection<Advertisement> Advertisements { get; set; }
         public ICollection<Picture> Pictures { get; set; }
-        public ICollection<Conversation> ConversationsAsAdvertiser { get; set; }
-        public ICollection<Conversation> ConversationsAsAdRecepient { get; set; }
         public ICollection<Message> MessagesAsSender { get; set; }
         public ICollection<Message> MessagesAsReceiver { get; set; }
 

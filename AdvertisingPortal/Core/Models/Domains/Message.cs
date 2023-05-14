@@ -16,7 +16,6 @@ namespace AdvertisingPortal.Core.Models.Domains
         public int ConversationId { get; set; }
         public ApplicationUser? Sender { get; set; }
         public ApplicationUser? Receiver { get; set; }
-        public Conversation? Conversation { get; set; }
 
     }
 }

@@ -41,7 +41,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IdentificationNumber")
-                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
@@ -65,7 +64,8 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("IdentificationNumber")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[IdentificationNumber] IS NOT NULL");
 
                     b.HasIndex("UserId");
 
@@ -87,29 +87,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Conversation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("AdRecipientId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AdvertiserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdRecipientId");
-
-                    b.HasIndex("AdvertiserId");
-
-                    b.ToTable("Conversations");
                 });
 
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Message", b =>
@@ -138,8 +115,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ConversationId");
 
                     b.HasIndex("ReceiverId");
 
@@ -417,31 +392,8 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Conversation", b =>
-                {
-                    b.HasOne("AdvertisingPortal.Core.Models.Domains.ApplicationUser", "AdRecipient")
-                        .WithMany("ConversationsAsAdRecepient")
-                        .HasForeignKey("AdRecipientId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("AdvertisingPortal.Core.Models.Domains.ApplicationUser", "Advertiser")
-                        .WithMany("ConversationsAsAdvertiser")
-                        .HasForeignKey("AdvertiserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("AdRecipient");
-
-                    b.Navigation("Advertiser");
-                });
-
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Message", b =>
                 {
-                    b.HasOne("AdvertisingPortal.Core.Models.Domains.Conversation", "Conversation")
-                        .WithMany("Messages")
-                        .HasForeignKey("ConversationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AdvertisingPortal.Core.Models.Domains.ApplicationUser", "Receiver")
                         .WithMany("MessagesAsReceiver")
                         .HasForeignKey("ReceiverId")
@@ -453,8 +405,6 @@ namespace AdvertisingPortal.Persistence.Migrations
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Conversation");
 
                     b.Navigation("Receiver");
 
@@ -541,18 +491,9 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.Navigation("Advertisements");
                 });
 
-            modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Conversation", b =>
-                {
-                    b.Navigation("Messages");
-                });
-
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.ApplicationUser", b =>
                 {
                     b.Navigation("Advertisements");
-
-                    b.Navigation("ConversationsAsAdRecepient");
-
-                    b.Navigation("ConversationsAsAdvertiser");
 
                     b.Navigation("MessagesAsReceiver");
 

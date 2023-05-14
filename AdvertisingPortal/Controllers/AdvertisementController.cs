@@ -1,10 +1,13 @@
 ﻿using AdvertisingPortal.Core.Models;
 using AdvertisingPortal.Core.Models.Domains;
+using AdvertisingPortal.Core.Models.Service;
 using AdvertisingPortal.Core.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyTasks.Persistence.Extensions;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Security.Claims;
 using IWebHostEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
 
 namespace AdvertisingPortal.Controllers
@@ -15,10 +18,14 @@ namespace AdvertisingPortal.Controllers
     {
         private IWebHostEnvironment Environment;
 
+        private IAdvertisementService _advertisementService;
+        private ICategoryService _categoryService;
 
-        public AdvertisementController(IWebHostEnvironment _environment)
+        public AdvertisementController(IWebHostEnvironment _environment, IAdvertisementService advertisementService, ICategoryService categoryService)
         {
             Environment = _environment;
+            _advertisementService = advertisementService;
+            _categoryService = categoryService;
         }
 
         [AllowAnonymous]
@@ -31,8 +38,8 @@ namespace AdvertisingPortal.Controllers
                 new Advertisement()
                 {
                     User = new ApplicationUser
-                    { 
-                        UserName = "Adam" 
+                    {
+                        UserName = "Adam"
                     },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
@@ -52,7 +59,7 @@ namespace AdvertisingPortal.Controllers
                 {
                     User = new ApplicationUser
                     {
-                        UserName = "Adam" 
+                        UserName = "Adam"
                     },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
@@ -72,7 +79,7 @@ namespace AdvertisingPortal.Controllers
                 {
                     User = new ApplicationUser
                     {
-                        UserName = "Adam" 
+                        UserName = "Adam"
                     },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
@@ -345,7 +352,7 @@ namespace AdvertisingPortal.Controllers
 
                 },
                 new Advertisement()
-                {   
+                {
                     User = new ApplicationUser{ UserName = "Adam" },
                     Category = new Category("Meble"),
                     Title = "Sprzedam laptopa",
@@ -559,74 +566,126 @@ namespace AdvertisingPortal.Controllers
 
         public IActionResult CreateAdvertisement(int id = 0)
         {
-            var advertisement = new Advertisement()
-            {
-                Pictures = new List<Picture>
-                    {
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
-                        {
-                            IsMainPicture = false
-                        },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
-                        {
-                            IsMainPicture = false
-                        },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
-                        {
-                            IsMainPicture = false
-                        },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
-                        {
-                            IsMainPicture = true
-                        },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
-                        {
-                            IsMainPicture = false
-                        },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
-                        {
-                            IsMainPicture = false
-                        },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
-                        {
-                            IsMainPicture = false
-                        },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
-                        {
-                            IsMainPicture = false
-                        },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
-                        {
-                            IsMainPicture = false
-                        },
-                        new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
-                        {
-                            IsMainPicture = false
-                        }
-                    }
-            };
+            var userId = User.GetUserId();
 
-            var heading = "Dodawanie ogłoszenia";
 
-            var categories = new List<Category>
-            {
-                new Category("Meble")
-                {
-                    Id = 1
-                },
-                new Category("Zwierzęta")
-                {
-                    Id = 2
-                },
-                new Category("Ogród")
-                {
-                    Id = 3
-                }
-            };
+            var vm = CreateCreateAdvertisementViewModel(userId, id);
 
-            var vm = new CreateAdvertisementViewModel(advertisement, categories, heading);
+            //var advertisement = new Advertisement()
+            //{
+            //    Pictures = new List<Picture>
+            //        {
+            //            new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+            //            {
+            //                IsMainPicture = false
+            //            },
+            //            new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+            //            {
+            //                IsMainPicture = false
+            //            },
+            //            new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+            //            {
+            //                IsMainPicture = false
+            //            },
+            //            new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+            //            {
+            //                IsMainPicture = true
+            //            },
+            //            new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+            //            {
+            //                IsMainPicture = false
+            //            },
+            //            new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+            //            {
+            //                IsMainPicture = false
+            //            },
+            //            new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+            //            {
+            //                IsMainPicture = false
+            //            },
+            //            new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+            //            {
+            //                IsMainPicture = false
+            //            },
+            //            new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+            //            {
+            //                IsMainPicture = false
+            //            },
+            //            new Picture(System.IO.File.ReadAllBytes(Path.Combine(this.Environment.WebRootPath, "img/") + "laptop.jpg"))
+            //            {
+            //                IsMainPicture = false
+            //            }
+            //        }
+            //};
+
+            //var heading = "Dodawanie ogłoszenia";
+
+            //var categories = new List<Category>
+            //{
+            //    new Category("Meble")
+            //    {
+            //        Id = 1
+            //    },
+            //    new Category("Zwierzęta")
+            //    {
+            //        Id = 2
+            //    },
+            //    new Category("Ogród")
+            //    {
+            //        Id = 3
+            //    }
+            //};
+
+            //var vm = new CreateAdvertisementViewModel(advertisement, categories, heading);
 
             return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult CreateAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images)
+        {
+            var userId = User.GetUserId();
+
+            if (advertisement.Id == 0)
+            {
+                advertisement.DateOfPublication = DateTime.Now;
+            }
+
+            advertisement.UserId = userId;
+
+
+            if (!ModelState.IsValid)
+            {
+                var vm = CreateCreateAdvertisementViewModel(userId, advertisement.Id);
+                return View(nameof(CreateAdvertisement), vm);
+            }
+
+
+
+            foreach (var image in images)
+            {
+                using var stream = new MemoryStream();
+                image.CopyTo(stream);
+                var picture = new Picture(stream.ToArray());
+                picture.FileName = image.FileName;
+                picture.UserId = userId;
+                advertisement.Pictures.Add(picture);
+            }
+
+            if (advertisement.Id == 0)
+                _advertisementService.AddAdvertisement(advertisement);
+            else
+                _advertisementService.UpdateAdvertisement(advertisement);
+
+            return View(nameof(Advertisements));
+        }
+
+
+        private CreateAdvertisementViewModel CreateCreateAdvertisementViewModel(string userId, int advertisementId)
+        {
+            return new CreateAdvertisementViewModel(advertisementId == 0 ? new Advertisement { UserId = userId } : _advertisementService.GetAdvertisement(userId, advertisementId),
+                                                      _categoryService.GetCategories(),
+                                                      advertisementId == 0 ? "Dodawanie ogłoszenia" : "Edycja ogłoszenia");
         }
     }
 }

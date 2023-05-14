@@ -72,16 +72,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWR2ZXJ0aXNlbWVudFxfQWR2ZXJ0aXNlbWVudHNUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Maciej/Programowanie/Akademia .NET/Week10/AdvertisingPortal/AdvertisingPortal/Views/Conversation/Conversation.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udmVyc2F0aW9uXENvbnZlcnNhdGlvbi5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [E:/Maciej/Programowanie/Akademia .NET/Week10/AdvertisingPortal/AdvertisingPortal/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/Maciej/Programowanie/Akademia .NET/Week10/AdvertisingPortal/AdvertisingPortal/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Maciej/Programowanie/Akademia .NET/Week10/AdvertisingPortal/AdvertisingPortal/Views/Message/Messages.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZVxNZXNzYWdlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Maciej/Programowanie/Akademia .NET/Week10/AdvertisingPortal/AdvertisingPortal/Views/Message/_MessagesHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZVxfTWVzc2FnZXNIaXN0b3J5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/Maciej/Programowanie/Akademia .NET/Week10/AdvertisingPortal/AdvertisingPortal/Views/Shared/Error.cshtml]

@@ -10,5 +10,6 @@ namespace MyTasks.Persistence.Extensions
             return model.FindFirstValue(ClaimTypes.NameIdentifier);
         }
 
+
     }
 }

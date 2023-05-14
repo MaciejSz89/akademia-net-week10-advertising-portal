@@ -18,7 +18,6 @@ namespace AdvertisingPortal.Core.Models.Domains
 
         [MaxLength(30)]
         [RegularExpression("^[0-9]*$")]
-        [Required]
         public string? IdentificationNumber { get; set; }
 
 

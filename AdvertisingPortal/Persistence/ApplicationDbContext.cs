@@ -23,17 +23,6 @@ namespace AdvertisingPortal.Persistence
                         .HasForeignKey(p=>p.UserId)
                         .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Conversation>()
-                        .HasOne(c => c.Advertiser)
-                        .WithMany(u => u.ConversationsAsAdvertiser)
-                        .HasForeignKey(c => c.AdvertiserId)
-                        .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Conversation>()
-                        .HasOne(c => c.AdRecipient)
-                        .WithMany(u => u.ConversationsAsAdRecepient)
-                        .HasForeignKey(c => c.AdRecipientId)
-                        .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Message>()
                         .HasOne(c => c.Sender)
@@ -54,7 +43,6 @@ namespace AdvertisingPortal.Persistence
         DbSet<Advertisement> Advertisements => Set<Advertisement>();
         DbSet<Category> Categories => Set<Category>();
         DbSet<Picture> Pictures => Set<Picture>();
-        DbSet<Conversation> Conversations => Set<Conversation>();
         DbSet<Message> Messages => Set<Message>();
     }
 }
