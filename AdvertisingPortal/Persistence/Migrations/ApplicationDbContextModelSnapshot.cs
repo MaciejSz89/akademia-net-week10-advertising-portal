@@ -87,6 +87,28 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Dom"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Hobby"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Praca"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Inne"
+                        });
                 });
 
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Message", b =>

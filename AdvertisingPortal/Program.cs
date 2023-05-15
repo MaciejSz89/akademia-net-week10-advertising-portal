@@ -1,7 +1,8 @@
+using AdvertisingPortal.Core;
 using AdvertisingPortal.Core.Models.Domains;
-using AdvertisingPortal.Core.Models.Service;
+using AdvertisingPortal.Core.Models.Services;
 using AdvertisingPortal.Persistence;
-using AdvertisingPortal.Persistence.Service;
+using AdvertisingPortal.Persistence.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
@@ -10,18 +11,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAdvertisementService, AdvertisementService>();
-
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.Configure<List<Category>>(builder.Configuration.GetSection("DefaultCategories"));
 
 var app = builder.Build();
 

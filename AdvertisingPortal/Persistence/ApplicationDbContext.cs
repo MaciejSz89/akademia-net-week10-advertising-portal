@@ -1,18 +1,21 @@
-﻿using AdvertisingPortal.Core.Models.Domains;
+﻿using AdvertisingPortal.Core;
+using AdvertisingPortal.Core.Models.Domains;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 
 namespace AdvertisingPortal.Persistence
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext, IApplicationDbContext
     {
-
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        private readonly IConfiguration _configuration;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration configuration)
             : base(options)
         {
+            _configuration = configuration;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,7 +39,25 @@ namespace AdvertisingPortal.Persistence
                         .HasForeignKey(c => c.ReceiverId)
                         .OnDelete(DeleteBehavior.Restrict);
 
+
+
+
             base.OnModelCreating(modelBuilder);
+
+            //var defaultCategoriesNames = _configuration.GetSection("DefaultCategories").Get<List<string>>();
+
+            //var defaultCategories = new List<Category>();
+
+            //int k = 1;
+
+            //foreach (var categoryName in defaultCategoriesNames)
+            //{
+            //    defaultCategories.Add(new Category(categoryName) { Id = k++ });
+            //}
+
+            //modelBuilder.Entity<Category>().HasData(defaultCategories);
+
+
         }
 
 

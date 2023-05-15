@@ -1,6 +1,6 @@
 ﻿using AdvertisingPortal.Core.Models;
 using AdvertisingPortal.Core.Models.Domains;
-using AdvertisingPortal.Core.Models.Service;
+using AdvertisingPortal.Core.Models.Services;
 using AdvertisingPortal.Core.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
