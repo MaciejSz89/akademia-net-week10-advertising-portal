@@ -15,7 +15,15 @@ namespace AdvertisingPortal.Persistence.Services
 
         public void AddAdvertisement(Advertisement advertisement)
         {
+            if (advertisement.Pictures != null && !advertisement.Pictures.Where(x => x.IsMainPicture).Any())
+                advertisement.Pictures.First().IsMainPicture = true;
+
             _unitOfWork.Advertisement.AddAdvertisement(advertisement);
+            _unitOfWork.Complete();
+        }
+        public Advertisement GetAdvertisement(int id)
+        {
+            return _unitOfWork.Advertisement.GetAdvertisement(id);
         }
 
         public Advertisement GetAdvertisement(string userId, int advertisementId)
@@ -23,9 +31,15 @@ namespace AdvertisingPortal.Persistence.Services
             return _unitOfWork.Advertisement.GetAdvertisement(userId, advertisementId);
         }
 
+        public IEnumerable<Advertisement> GetAdvertisements()
+        {
+            return _unitOfWork.Advertisement.GetAdvertisements();
+        }
+
         public void UpdateAdvertisement(Advertisement advertisement)
         {
             _unitOfWork.Advertisement.UpdateAdvertisement(advertisement);
+            _unitOfWork.Complete();
         }
     }
 }

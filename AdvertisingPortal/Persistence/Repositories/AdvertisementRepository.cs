@@ -1,6 +1,7 @@
 ﻿using AdvertisingPortal.Core;
 using AdvertisingPortal.Core.Models.Domains;
 using AdvertisingPortal.Core.Models.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdvertisingPortal.Persistence.Repositories
 {
@@ -14,12 +15,28 @@ namespace AdvertisingPortal.Persistence.Repositories
 
         public void AddAdvertisement(Advertisement advertisement)
         {
-            throw new NotImplementedException();
+            _context.Advertisements.Add(advertisement);
         }
 
         public Advertisement GetAdvertisement(string userId, int advertisementId)
         {
             throw new NotImplementedException();
+        }
+
+        public Advertisement GetAdvertisement(int id)
+        {
+            return _context.Advertisements
+                           .Include(x => x.User)
+                           .Include(x => x.Pictures)
+                           .Single(x => x.Id == id);
+        }
+
+        public IEnumerable<Advertisement> GetAdvertisements()
+        {
+            return _context.Advertisements
+                           .Include(x => x.User)
+                           .Include(x => x.Pictures)
+                           .ToList();
         }
 
         public void UpdateAdvertisement(Advertisement advertisement)

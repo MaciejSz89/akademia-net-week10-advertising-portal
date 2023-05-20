@@ -96,6 +96,7 @@ button.img-thumbnail {
     height: inherit!important;
     width: 200px;
 }
+
 .td-img-thumbnail div{
     width: inherit!important;
     height: inherit!important;
@@ -116,6 +117,7 @@ button.img-thumbnail {
 
 .card-img-top img {
     height: 100%!important;
+    width: auto;
 }
 
 a{

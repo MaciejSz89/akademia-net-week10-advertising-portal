@@ -20,7 +20,7 @@ namespace AdvertisingPortal.Persistence
 
         public void Complete()
         {
-            throw new NotImplementedException();
+           _context.SaveChanges();
         }
     }
 }

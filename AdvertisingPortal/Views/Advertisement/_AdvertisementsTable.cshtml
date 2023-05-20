@@ -6,7 +6,7 @@
 <table class="table table-bordered table-stripped table-hover">
     @foreach (var advertisement in Model)
     {
-        <tr >
+        <tr onclick="location.href='@Url.Action("ViewAdvertisement", "Advertisement", new { id = advertisement.Id })'">
             <td class="td-img-thumbnail" >
                 @if (advertisement.Pictures != null && advertisement.Pictures.Any())
                 {

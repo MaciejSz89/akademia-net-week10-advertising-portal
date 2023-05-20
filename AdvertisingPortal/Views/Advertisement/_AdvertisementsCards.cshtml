@@ -6,7 +6,8 @@
 <div class="d-flex justify-content-evenly flex-wrap">
     @foreach (var advertisement in Model)
     {
-        <div class="card mb-3" >
+        <div class="card mb-3" 
+             onclick="location.href='@Url.Action("ViewAdvertisement", "Advertisement", new { id = advertisement.Id })'" >
             <div class="backgroundEffect d-flex flex-column">
                 @if (advertisement.Pictures != null && advertisement.Pictures.Any())
                 {

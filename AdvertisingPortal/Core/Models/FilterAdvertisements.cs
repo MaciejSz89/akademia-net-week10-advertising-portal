@@ -7,9 +7,13 @@ namespace AdvertisingPortal.Core.Models
 {
     public class FilterAdvertisements
     {
-        public FilterAdvertisements()
+        public FilterAdvertisements(IEnumerable<Category> categories)
         {
             Categories = new Collection<FilterCategory>();
+            foreach (var category in categories)
+            {
+                Categories.Add(new FilterCategory(category.Id, category.Name));
+            }
         }
         public string? Text { get; set; }
 

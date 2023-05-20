@@ -14,23 +14,7 @@ namespace AdvertisingPortal.Persistence.Repositories
 
         public IEnumerable<Category> GetCategories()
         {
-            var categories = new List<Category>
-            {
-                new Category("Meble")
-                {
-                    Id = 1
-                },
-                new Category("Zwierzęta")
-                {
-                    Id = 2
-                },
-                new Category("Ogród")
-                {
-                    Id = 3
-                }
-            };
-
-            
+            var categories = _context.Categories.ToList();
 
             return categories;
         }

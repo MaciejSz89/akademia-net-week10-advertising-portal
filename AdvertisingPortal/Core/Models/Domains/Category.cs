@@ -6,16 +6,15 @@ namespace AdvertisingPortal.Core.Models.Domains
 {
     public class Category
     {
-        public Category(string name)
+        public Category()
         {
             Advertisements = new Collection<Advertisement>();
-            Name = name;
         }
         public int Id { get; set; }
 
         [Display(Name = "Nazwa")]
         [Required(ErrorMessage = "Pole Nazwa jest wymagane")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public ICollection<Advertisement> Advertisements { get; set; }
     }

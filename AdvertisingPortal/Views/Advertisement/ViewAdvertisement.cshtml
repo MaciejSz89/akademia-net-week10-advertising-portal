@@ -7,7 +7,12 @@
 
 <div class="container">
 
-  
+    <div class="row mb-3">
+        <div class="col-12 fs-2 fw-bold">
+            @Model.Title
+        </div>
+    </div>
+
     <div class="row mb-4">
         <div id="carouselPictures" class="col-12 carousel slide d-flex flex-column" data-bs-ride="carousel">
             <div>
@@ -55,43 +60,40 @@
                     {
                         <button style="width: auto" type="button" data-bs-target="#carouselPictures" data-bs-slide-to="@i" class="img-thumbnail">
                             <img class="d-block h-100"
-                                 src="https://picsum.photos/2000/1000" />
-                                 @*src="data:image;base64,@System.Convert.ToBase64String(Model.Pictures.ElementAt(i).Image)" />*@
+                                 @*src="https://picsum.photos/2000/1000" />*@
+                                 src="data:image;base64,@System.Convert.ToBase64String(Model.Pictures.ElementAt(i).Image)" />
                         </button>
                     }
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row mb-3">
-        <div class="col-12 fs-2 fw-bold">
-            @Model.Title
-        </div>
-    </div>
-    <div class="row mb-3 fw-bold">
-        <div class="col-12 fs-1">
-            @Model.Price.ToString("0.00") zł
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-5 fs-4">
+        <div class="col-5 fs-5">
             @Model.Location - @Model.DateOfPublication.ToString("f")
             
         </div>
         <div class="col-4">
 
         </div>
-        <div class="col-3 text-end fs-4">
+        <div class="col-3 text-end fs-6">
             Dodane przez <a class="text-decoration-none link-dark fw-bold">@Model.User?.UserName</a>
+        </div>
+    </div>
+    <div class="row mb-3 fw-bold">
+        <div class="col-12 fs-4">
+            @Model.Price.ToString("0.00") zł
         </div>
     </div>
     <div class="row mb-4">
         <div class="col-12">
-            <p class="fs-5 text-justify">
+            <p class="fs-6 text-justify">
                 @Model.Description
             </p>
         </div>
     </div>
+
     <div class="row mb-4">
         <div class="col-12 d-flex justify-content-end">
             <button class="btn btn-primary btn-lg">

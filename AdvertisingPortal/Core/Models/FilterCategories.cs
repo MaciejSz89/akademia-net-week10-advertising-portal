@@ -4,14 +4,15 @@ namespace AdvertisingPortal.Core.Models
 {
     public class FilterCategory
     {
-        public FilterCategory(Category category)
+        public FilterCategory(int categoryId, string? categoryName)
         {
-            CategoryId = category.Id;
-            CategoryName = category.Name;
+            CategoryId = categoryId;
+            CategoryName = categoryName;
+            IsSelected = true;
         }
 
         public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public string? CategoryName { get; set; }
         public bool IsSelected { get; set; }
     }
 }

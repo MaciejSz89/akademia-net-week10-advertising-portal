@@ -15,7 +15,7 @@
 
     <div class="row">
         <div class="col-lg-6">
-            @using (Html.BeginForm("CreateAdvertisement", "Advertisement", FormMethod.Post, new { id = "create-advertisement-form", enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("CreateAdvertisement", "Advertisement", FormMethod.Post, new { id = "createAdvertisementForm", enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
 
@@ -52,9 +52,21 @@
                 </div>
 
                 <div class="form-group mb-2">
+                    @Html.LabelFor(x => x.Advertisement.Price,
+                                   "Cena (zł)",
+                                   new { @class = "form-label"})
+                    @Html.TextBoxFor(x => x.Advertisement.Price,
+                                     "{0:N2} zł",
+                                     new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Advertisement.Price,
+                                               "",
+                                               new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-2">
                     @Html.LabelFor(x => x.Advertisement.Description,
                                    new { @class="form-label" })
-                    @Html.TextAreaFor(x => x.Advertisement.Description,
+                    @Html.TextAreaFor(x => x.Advertisement.Description,                                      
                                       new { @class = "form-control"})
                     @Html.ValidationMessageFor(x => x.Advertisement.Description,
                                                "",
@@ -102,23 +114,34 @@
                 }
 
 
-                <button type="submit" 
-                        class="btn btn-primary btn-lg mt-2">
-                    Zapisz
-                </button>
-
-                <button class="btn btn-secondary btn-lg mt-2" 
-                        onclick="window.location.href='@Url.Action("Advertisements","Advertisement")'">
-                    Anuluj
-                </button>
-
-
-
+               
             }
         </div>
+ 
     </div>
+    <div class="row">
+        <div class="col-6">
+            <button type="submit"
+                    form="createAdvertisementForm"
+                    class="btn btn-primary btn-lg mt-2">
+                Zapisz
+            </button>
+
+            <button class="btn btn-secondary btn-lg mt-2"
+                    onclick="location.href='@Url.Action("Advertisements", "Advertisement")'">
+                Anuluj
+            </button>
+        </div>
+        
+    </div>
+       
 
     
 </div>
 
+@section Scripts
+{
+    <script type="text/javascript">
 
+    </script>
+}

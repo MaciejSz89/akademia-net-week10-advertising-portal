@@ -29,6 +29,9 @@ namespace AdvertisingPortal.Core.Models.Domains
         [Required(ErrorMessage = "Pole Opis jest wymagane")]
         public string? Description { get; set; }
 
+        [DataType(DataType.Currency)]
+        [RegularExpression(@"^\d+(\,\d{1,2})?$")]
+        [DisplayFormat(DataFormatString = "{0:N2} zł")]
         [Column(TypeName = "money")]
         [Display(Name = "Cena")]
         public decimal Price { get; set; }

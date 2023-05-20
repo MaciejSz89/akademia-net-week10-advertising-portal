@@ -92,22 +92,52 @@ namespace AdvertisingPortal.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Dom"
+                            Name = "Elektronika"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Hobby"
+                            Name = "Meble i wyposażenie wnętrz"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Praca"
+                            Name = "Motoryzacja"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Inne"
+                            Name = "Moda i odzież"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Sport i rekreacja"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Dom i ogród"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Dla dzieci"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Hobby i kolekcje"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Elektronika użytkowa"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Zwierzęta i akcesoria"
                         });
                 });
 
