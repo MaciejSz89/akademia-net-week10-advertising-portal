@@ -20,12 +20,14 @@ namespace AdvertisingPortal.Controllers
 
         private IAdvertisementService _advertisementService;
         private ICategoryService _categoryService;
+        private IPictureService _pictureService;
 
-        public AdvertisementController(IWebHostEnvironment _environment, IAdvertisementService advertisementService, ICategoryService categoryService)
+        public AdvertisementController(IWebHostEnvironment _environment, IAdvertisementService advertisementService, ICategoryService categoryService, IPictureService pictureService)
         {
             Environment = _environment;
             _advertisementService = advertisementService;
             _categoryService = categoryService;
+            _pictureService = pictureService;
         }
 
         [AllowAnonymous]
@@ -39,14 +41,21 @@ namespace AdvertisingPortal.Controllers
         [AllowAnonymous]
         public IActionResult Advertisements()
         {
-
-
             var advertisements = _advertisementService.GetAdvertisements();
 
             
             var vm = new AdvertisementsViewModel(new FilterAdvertisements(_categoryService.GetCategories()), advertisements);
 
             return View(vm);
+        }
+
+        public IActionResult UserAdvertisements()
+        {
+            var userId = User.GetUserId();
+
+            var advertisements = _advertisementService.GetAdvertisements(userId);
+
+            return View(advertisements);
         }
 
         [AllowAnonymous]
@@ -81,7 +90,7 @@ namespace AdvertisingPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images)
+        public IActionResult CreateAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images, int[] deletedPictures)
         {
             var userId = User.GetUserId();
 
@@ -99,18 +108,12 @@ namespace AdvertisingPortal.Controllers
                 return View(nameof(CreateAdvertisement), vm);
             }
 
+            if(advertisement.Id == 0)
+                _advertisementService.AddPicturesToAdvertisement(advertisement, images);
+            else
+                _pictureService.AddPictures(userId, advertisement.Id, images);
 
-
-            foreach (var image in images)
-            {
-                using var stream = new MemoryStream();
-                image.CopyTo(stream);
-                var picture = new Picture(stream.ToArray());
-                picture.FileName = image.FileName;
-                picture.UserId = userId;
-                advertisement.Pictures.Add(picture);
-            }
-
+           
             if (advertisement.Id == 0)
                 _advertisementService.AddAdvertisement(advertisement);
             else

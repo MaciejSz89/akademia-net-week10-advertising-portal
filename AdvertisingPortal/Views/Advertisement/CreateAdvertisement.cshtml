@@ -19,6 +19,7 @@
             {
                 @Html.AntiForgeryToken()
 
+                @Html.HiddenFor(x => x.Advertisement.Id)
                 @Html.HiddenFor(x => x.Advertisement.UserId)
 
                 <div class="form-group mb-2">
@@ -82,8 +83,10 @@
                             <label class="mb-1">Przesłane zdjęcia</label>
                             @foreach (var picture in Model.Advertisement.Pictures)
                             {
-                                <div class="col-md-3 mb-2">
-                                    <img src="data:image;base64,@System.Convert.ToBase64String(picture.Image)" class="img-thumbnail" />
+                                <div class="mb-2 d-flex flex-column">
+                                    <div class="img-container">
+                                        <img src="data:image;base64,@System.Convert.ToBase64String(picture.Image)" class="img-thumbnail" />
+                                    </div>                                  
 
                                     <div class="text-center">
                                         <input type="radio" name="mainPicture" value="@picture.Id" checked="@picture.IsMainPicture" /> Główne
@@ -104,14 +107,14 @@
                     <label for="images" class="form-label">Prześlij zdjęcia</label>
                     <input type="file" name="images" id="images" multiple class="form-control" />
                 </div>
-
+@*
                 @if (Model.Advertisement.Pictures != null && Model.Advertisement.Pictures.Any())
                 {
                     @foreach (var picture in Model.Advertisement.Pictures)
                     {
                         <input type="hidden" name="deletedPictures" value="@picture.Id" />
                     }
-                }
+                }*@
 
 
                

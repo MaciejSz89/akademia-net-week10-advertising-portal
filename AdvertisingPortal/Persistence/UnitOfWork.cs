@@ -13,10 +13,12 @@ namespace AdvertisingPortal.Persistence
             _context = context;
             Advertisement = new AdvertisementRepository(context);
             Category = new CategoryRepository(context);
+            Picture = new PictureRepository(context);
         }
 
         public IAdvertisementRepository Advertisement { get; set; }
         public ICategoryRepository Category { get; set; }
+        public IPictureRepository Picture { get; set; }
 
         public void Complete()
         {

@@ -21,6 +21,21 @@ namespace AdvertisingPortal.Persistence.Services
             _unitOfWork.Advertisement.AddAdvertisement(advertisement);
             _unitOfWork.Complete();
         }
+
+        public void AddPicturesToAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images)
+        {
+            foreach (var image in images)
+            {
+                using var stream = new MemoryStream();
+                image.CopyTo(stream);
+                var picture = new Picture(stream.ToArray());
+                picture.FileName = image.FileName;
+                picture.UserId = advertisement.UserId;
+                advertisement.Pictures.Add(picture);
+            }
+
+        }
+
         public Advertisement GetAdvertisement(int id)
         {
             return _unitOfWork.Advertisement.GetAdvertisement(id);
@@ -34,6 +49,11 @@ namespace AdvertisingPortal.Persistence.Services
         public IEnumerable<Advertisement> GetAdvertisements()
         {
             return _unitOfWork.Advertisement.GetAdvertisements();
+        }
+
+        public IEnumerable<Advertisement> GetAdvertisements(string userId)
+        {
+            return _unitOfWork.Advertisement.GetAdvertisements(userId);
         }
 
         public void UpdateAdvertisement(Advertisement advertisement)

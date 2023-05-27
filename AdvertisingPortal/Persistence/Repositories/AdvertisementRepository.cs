@@ -20,7 +20,10 @@ namespace AdvertisingPortal.Persistence.Repositories
 
         public Advertisement GetAdvertisement(string userId, int advertisementId)
         {
-            throw new NotImplementedException();
+            return _context.Advertisements
+                           .Include(x => x.Pictures)
+                           .Single(x => x.UserId == userId
+                                     && x.Id == advertisementId);
         }
 
         public Advertisement GetAdvertisement(int id)
@@ -39,9 +42,28 @@ namespace AdvertisingPortal.Persistence.Repositories
                            .ToList();
         }
 
+        public IEnumerable<Advertisement> GetAdvertisements(string userId)
+        {
+            return _context.Advertisements
+                           .Where(x => x.UserId == userId)
+                           .Include(x => x.User)
+                           .Include(x => x.Pictures)
+                           .ToList();
+        }
+
         public void UpdateAdvertisement(Advertisement advertisement)
         {
-            throw new NotImplementedException();
+            var advertisementToUpdate = _context.Advertisements.Single(x => x.Id == advertisement.Id 
+                                                                         && x.UserId == advertisement.UserId);
+            advertisementToUpdate.CategoryId = advertisement.CategoryId;
+            advertisementToUpdate.Title = advertisement.Title;
+            advertisementToUpdate.Price = advertisement.Price;
+            advertisementToUpdate.Description = advertisement.Description;
+            advertisementToUpdate.Location = advertisement.Location;
+            advertisementToUpdate.Pictures = advertisement.Pictures;
+
+
+            _context.Advertisements.Update(advertisementToUpdate);
         }
     }
 }

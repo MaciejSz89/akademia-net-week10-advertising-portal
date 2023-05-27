@@ -6,6 +6,7 @@ namespace AdvertisingPortal.Core
     {
         IAdvertisementRepository Advertisement { get; set; }
         ICategoryRepository Category { get; set; }
+        IPictureRepository Picture { get; set; }
         void Complete();
     }
 }

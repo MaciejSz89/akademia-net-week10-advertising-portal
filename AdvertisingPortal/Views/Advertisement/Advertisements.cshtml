@@ -143,5 +143,10 @@
                 dataType: 'html'
             });
         }
+
+        function viewAdvertisement(id){
+            location.href = '@Url.Action("ViewAdvertisement", "Advertisement")' + '?id=' + id;
+        }
+
     </script>
 }
