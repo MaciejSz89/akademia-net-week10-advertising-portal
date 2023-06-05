@@ -17,5 +17,14 @@ namespace AdvertisingPortal.Persistence.Repositories
         {
             _context.Pictures.AddRange(pictures);
         }
+
+        public void DeletePictures(string userId, IEnumerable<int> picturesToDeleteId)
+        {
+            var picturesToDelete = _context.Pictures
+                                           .Where(x => x.UserId == userId 
+                                                    && picturesToDeleteId.Contains(x.Id));
+
+            _context.Pictures.RemoveRange(picturesToDelete);
+        }
     }
 }

@@ -9,7 +9,6 @@
 
 <div class="container-fluid">
     <form id="filterForm" class="gy-2 gx-3 align-items-center mb-4">
-        @Html.AntiForgeryToken()
     
         <div class="row">
             <div class="col-auto">
@@ -48,24 +47,24 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-auto d-flex flex-wrap">
-                @foreach (var category in Model.FilterAdvertisements.Categories)
+            <div class="col-auto d-flex flex-wrap"> 
+                @if (Model.Categories != null && Model.Categories.Any())
                 {
-                    <div class="me-3 mb-2">
-                        @Html.HiddenFor(x => category.CategoryId)
-
-                        @Html.CheckBoxFor(x => category.IsSelected,
-                                          new { @class="form-check-input" })
-
-                        @Html.LabelFor(x => category,
-                                       category.CategoryName,
-                                       new { @class="form-check-label"} )
-                    </div>
-
-                
+                    @foreach (var category in Model.Categories)
+                    {
+                        <div class="me-3 mb-2">
+                            <input type="checkbox"
+                                   id="category_@category.Id"
+                                   name="@nameof(Model.FilterAdvertisements).@nameof(Model.FilterAdvertisements.Categories)" 
+                                   value="@category.Id" class="form-check-input" 
+                                   checked="checked" />
+                            <label class="form-check-label" for="category_@category.Id">@category.Name</label>
+                        </div>
+                    }       
                 }
             </div>
         </div>
+
     
     </form>
 
@@ -86,7 +85,7 @@
         </div>
     
         <div class="row">
-            <div id="advertisements-partial" class="col-12">
+            <div id="advertisementsPartial" class="col-12">
                 @await Html.PartialAsync("_AdvertisementsTable", Model.Advertisements)
             </div>
         </div>
@@ -110,13 +109,42 @@
 @section Scripts
 {
     <script type="text/javascript">
-        function displayTable(){
+
+        $(document).ready(function () {
+            
+            $('#filterForm').submit(function () {
+                console.log($(this).serialize());
+                $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("AdvertisementsTable", "Advertisement")',
+                        data: $(this).serialize(),
+                        success: function (data) {
+                            $('#advertisementsPartial').html(data);
+                    },
+                        error: function(data){
+                        alert(data.message);
+                    },
+                    dataType: 'html'
+            }); 
+
+                //if ($('#advertisementsPartial').has('.table')) {
+                //    displayTable($(this).serialize());
+                //} else if ($('#advertisementsPartial').has('.card')) {
+                //    displayCards($(this).serialize());
+                //}              
+
+                return false;
+            })
+        });
+
+        function displayTable() {
+
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("AdvertisementsTable", "Advertisement")',
-                data: {},
+                data: formData,
                 success: function (data) {
-                    $('#advertisements-partial').html(data);
+                    $('#advertisementsPartial').html(data);
                     $('#btnTableView').addClass('btn-link');
                     $('#btnCardsView').removeClass('btn-link');
                 },
@@ -127,13 +155,13 @@
             });         
         }
 
-        function displayCards(){
+        function displayCards() {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("AdvertisementsCards", "Advertisement")',
-                data: {},
+                data: formData,
                 success: function(data){
-                    $('#advertisements-partial').html(data);            
+                    $('#advertisementsPartial').html(data);            
                     $('#btnCardsView').addClass('btn-link');
                     $('#btnTableView').removeClass('btn-link');
                 },

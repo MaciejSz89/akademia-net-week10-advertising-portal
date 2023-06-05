@@ -1,4 +1,5 @@
 ﻿using AdvertisingPortal.Core;
+using AdvertisingPortal.Core.Models;
 using AdvertisingPortal.Core.Models.Domains;
 using AdvertisingPortal.Core.Models.Services;
 
@@ -54,6 +55,11 @@ namespace AdvertisingPortal.Persistence.Services
         public IEnumerable<Advertisement> GetAdvertisements(string userId)
         {
             return _unitOfWork.Advertisement.GetAdvertisements(userId);
+        }
+
+        public IEnumerable<Advertisement> GetAdvertisements(GetAdvertisementsParams getAdvertisementParams)
+        {
+            return _unitOfWork.Advertisement.GetAdvertisements(getAdvertisementParams);
         }
 
         public void UpdateAdvertisement(Advertisement advertisement)

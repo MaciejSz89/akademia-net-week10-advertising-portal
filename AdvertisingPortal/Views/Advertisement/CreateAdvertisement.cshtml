@@ -57,7 +57,7 @@
                                    "Cena (zł)",
                                    new { @class = "form-label"})
                     @Html.TextBoxFor(x => x.Advertisement.Price,
-                                     "{0:N2} zł",
+                                     "{0:N2}",
                                      new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.Advertisement.Price,
                                                "",
@@ -107,14 +107,7 @@
                     <label for="images" class="form-label">Prześlij zdjęcia</label>
                     <input type="file" name="images" id="images" multiple class="form-control" />
                 </div>
-@*
-                @if (Model.Advertisement.Pictures != null && Model.Advertisement.Pictures.Any())
-                {
-                    @foreach (var picture in Model.Advertisement.Pictures)
-                    {
-                        <input type="hidden" name="deletedPictures" value="@picture.Id" />
-                    }
-                }*@
+
 
 
                

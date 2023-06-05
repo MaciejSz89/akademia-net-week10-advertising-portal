@@ -1,7 +1,9 @@
 ﻿using AdvertisingPortal.Core;
+using AdvertisingPortal.Core.Models;
 using AdvertisingPortal.Core.Models.Domains;
 using AdvertisingPortal.Core.Models.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace AdvertisingPortal.Persistence.Repositories
 {
@@ -51,9 +53,51 @@ namespace AdvertisingPortal.Persistence.Repositories
                            .ToList();
         }
 
+        public IEnumerable<Advertisement> GetAdvertisements(GetAdvertisementsParams getAdvertisementParams)
+        {
+            var advertisementsQuery = _context.Advertisements
+                                              .Include(x => x.Pictures)
+                                              .AsQueryable();
+
+            if (getAdvertisementParams.PriceFrom != null)
+                advertisementsQuery = advertisementsQuery.Where(x => x.Price >= getAdvertisementParams.PriceFrom);
+
+            if (getAdvertisementParams.PriceTo != null && getAdvertisementParams.PriceTo > 0)
+                advertisementsQuery = advertisementsQuery.Where(x => x.Price <= getAdvertisementParams.PriceTo);
+
+
+            if (!string.IsNullOrWhiteSpace(getAdvertisementParams.Text))
+                advertisementsQuery = advertisementsQuery.Where(x => x.Title != null
+                                                                  && x.Title.ToUpper().Contains(getAdvertisementParams.Text.ToUpper()));
+
+            if (getAdvertisementParams.CategoryIds != null && getAdvertisementParams.CategoryIds.Any())
+                advertisementsQuery = advertisementsQuery.Where(x => getAdvertisementParams.CategoryIds.Contains(x.CategoryId));
+
+            //switch (getAdvertisementParams.SortAdvertisements)
+            //{
+            //    case SortAdvertisements.ByDateOfPublicationDescending:
+            //        advertisementsQuery = advertisementsQuery.OrderByDescending(x => x.DateOfPublication);
+            //        break;
+            //    case SortAdvertisements.ByDateOfPublicationAscending:
+            //        advertisementsQuery = advertisementsQuery.OrderBy(x => x.DateOfPublication);
+            //        break;
+            //    case SortAdvertisements.ByPriceAscending:
+            //        advertisementsQuery = advertisementsQuery.OrderBy(x => x.Price);
+            //        break;
+            //    case SortAdvertisements.ByPriceDescending:
+            //        advertisementsQuery = advertisementsQuery.OrderByDescending(x => x.Price);
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+
+            return advertisementsQuery.ToList();
+        }
+
         public void UpdateAdvertisement(Advertisement advertisement)
         {
-            var advertisementToUpdate = _context.Advertisements.Single(x => x.Id == advertisement.Id 
+            var advertisementToUpdate = _context.Advertisements.Single(x => x.Id == advertisement.Id
                                                                          && x.UserId == advertisement.UserId);
             advertisementToUpdate.CategoryId = advertisement.CategoryId;
             advertisementToUpdate.Title = advertisement.Title;

@@ -25,7 +25,7 @@
         </div>
     
         <div class="row">
-            <div id="advertisements-partial" class="col-12">
+            <div id="advertisementsPartial" class="col-12">
                 @await Html.PartialAsync("_AdvertisementsTable", Model)
             </div>
         </div>
@@ -52,10 +52,10 @@
         function displayTable(){
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("AdvertisementsTable", "Advertisement")',
+                url: '@Url.Action("UserAdvertisementsTable", "Advertisement")',
                 data: {},
                 success: function (data) {
-                    $('#advertisements-partial').html(data);
+                    $('#advertisementsPartial').html(data);
                     $('#btnTableView').addClass('btn-link');
                     $('#btnCardsView').removeClass('btn-link');
                 },
@@ -69,10 +69,10 @@
         function displayCards(){
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("AdvertisementsCards", "Advertisement")',
+                url: '@Url.Action("UserAdvertisementsCards", "Advertisement")',
                 data: {},
                 success: function(data){
-                    $('#advertisements-partial').html(data);            
+                    $('#advertisementsPartial').html(data);            
                     $('#btnCardsView').addClass('btn-link');
                     $('#btnTableView').removeClass('btn-link');
                 },

@@ -38,7 +38,7 @@ td{
 
 .card {
     width: 280px;
-    height: 380px;
+    height: 500px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     background: #fff;
     transition: all 0.5s ease;
@@ -62,7 +62,7 @@ td{
 
 .card:hover .backgroundEffect {
     bottom: 0;
-    height: 400px;
+    height: 520px;
     width: 100%;
     position: absolute;
     z-index: -1;
@@ -105,14 +105,14 @@ button.img-thumbnail {
 }
 
 .card {
-    width: 18rem;
+    width: 24rem;
 }
 
 .card-img-top {
     display: flex;
     justify-content: center;
     background-color: lightgray;
-    height: 180px!important;
+    height: 300px!important;
 }
 
 .card-img-top img {

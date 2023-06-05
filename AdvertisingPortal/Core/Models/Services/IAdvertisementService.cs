@@ -12,5 +12,6 @@ namespace AdvertisingPortal.Core.Models.Services
         IEnumerable<Advertisement> GetAdvertisements();
         IEnumerable<Advertisement> GetAdvertisements(string userId);
         void AddPicturesToAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images);
+        IEnumerable<Advertisement> GetAdvertisements(GetAdvertisementsParams getAdvertisementParams);
     }
 }

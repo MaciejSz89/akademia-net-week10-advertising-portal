@@ -41,10 +41,12 @@ namespace AdvertisingPortal.Controllers
         [AllowAnonymous]
         public IActionResult Advertisements()
         {
+   
             var advertisements = _advertisementService.GetAdvertisements();
+            var categories = _categoryService.GetCategories();
+            var filterAdvertisement = new FilterAdvertisements();
 
-            
-            var vm = new AdvertisementsViewModel(new FilterAdvertisements(_categoryService.GetCategories()), advertisements);
+            var vm = new AdvertisementsViewModel(filterAdvertisement, SortAdvertisements.ByDateOfPublicationDescending, advertisements, categories);
 
             return View(vm);
         }
@@ -60,18 +62,44 @@ namespace AdvertisingPortal.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult AdvertisementsTable()
+        public IActionResult AdvertisementsTable(FilterAdvertisements filterAdvertisements, SortAdvertisements sortAdvertisements)
         {
-            var advertisements = _advertisementService.GetAdvertisements();
+            var getAdvertisementParams = new GetAdvertisementsParams(filterAdvertisements,
+                                                                     sortAdvertisements);
+
+            var advertisements = _advertisementService.GetAdvertisements(getAdvertisementParams);
 
             return PartialView("_AdvertisementsTable", advertisements);
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult AdvertisementsCards()
+        public IActionResult AdvertisementsCards(AdvertisementsViewModel viewModel)
         {
-            var advertisements = _advertisementService.GetAdvertisements();
+            var getAdvertisementParams = new GetAdvertisementsParams(viewModel.FilterAdvertisements, viewModel.SortAdvertisements);
+
+            var advertisements = _advertisementService.GetAdvertisements(getAdvertisementParams);
+
+            return PartialView("_AdvertisementsCards", advertisements);
+        }
+
+
+        [HttpPost]
+        public IActionResult UserAdvertisementsTable()
+        {
+            var userId = User.GetUserId();
+
+            var advertisements = _advertisementService.GetAdvertisements(userId);
+
+            return PartialView("_AdvertisementsTable", advertisements);
+        }
+
+        [HttpPost]
+        public IActionResult UserAdvertisementsCards()
+        {
+            var userId = User.GetUserId();
+
+            var advertisements = _advertisementService.GetAdvertisements(userId);
 
             return PartialView("_AdvertisementsCards", advertisements);
         }
@@ -108,12 +136,20 @@ namespace AdvertisingPortal.Controllers
                 return View(nameof(CreateAdvertisement), vm);
             }
 
-            if(advertisement.Id == 0)
-                _advertisementService.AddPicturesToAdvertisement(advertisement, images);
-            else
-                _pictureService.AddPictures(userId, advertisement.Id, images);
+            if (images != null && images.Any())
+            {
+                if (advertisement.Id == 0)
+                    _advertisementService.AddPicturesToAdvertisement(advertisement, images);
+                else
+                    _pictureService.AddPictures(userId, advertisement.Id, images);
+            }
 
-           
+
+            if (deletedPictures != null && deletedPictures.Any())
+                _pictureService.DeletePictures(userId, deletedPictures);
+
+
+
             if (advertisement.Id == 0)
                 _advertisementService.AddAdvertisement(advertisement);
             else

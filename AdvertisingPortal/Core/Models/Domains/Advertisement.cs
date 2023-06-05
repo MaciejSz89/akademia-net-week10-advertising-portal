@@ -31,6 +31,7 @@ namespace AdvertisingPortal.Core.Models.Domains
 
         [DataType(DataType.Currency)]
         [RegularExpression(@"^\d+(\,\d{1,2})?$")]
+        //[DisplayFormat(DataFormatString = "{0:N2} zł")]
         [DisplayFormat(DataFormatString = "{0:N2} zł")]
         [Column(TypeName = "money")]
         [Display(Name = "Cena")]

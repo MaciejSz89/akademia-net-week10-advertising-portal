@@ -33,5 +33,12 @@ namespace AdvertisingPortal.Persistence.Services
 
             _unitOfWork.Complete();
         }
+
+        public void DeletePictures(string userId, IEnumerable<int> picturesToDeleteId)
+        {
+            _unitOfWork.Picture.DeletePictures(userId, picturesToDeleteId);
+
+            _unitOfWork.Complete();
+        }
     }
 }

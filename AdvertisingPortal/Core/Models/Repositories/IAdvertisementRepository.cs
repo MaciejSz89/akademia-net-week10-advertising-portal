@@ -9,6 +9,7 @@ namespace AdvertisingPortal.Core.Models.Repositories
         Advertisement GetAdvertisement(string userId, int advertisementId);
         IEnumerable<Advertisement> GetAdvertisements();
         IEnumerable<Advertisement> GetAdvertisements(string userId);
+        IEnumerable<Advertisement> GetAdvertisements(GetAdvertisementsParams getAdvertisementParams);
         void UpdateAdvertisement(Advertisement advertisement);
     }
 }
