@@ -74,9 +74,9 @@ namespace AdvertisingPortal.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult AdvertisementsCards(AdvertisementsViewModel viewModel)
+        public IActionResult AdvertisementsCards(FilterAdvertisements filterAdvertisements, SortAdvertisements sortAdvertisements)
         {
-            var getAdvertisementParams = new GetAdvertisementsParams(viewModel.FilterAdvertisements, viewModel.SortAdvertisements);
+            var getAdvertisementParams = new GetAdvertisementsParams(filterAdvertisements, sortAdvertisements);
 
             var advertisements = _advertisementService.GetAdvertisements(getAdvertisementParams);
 

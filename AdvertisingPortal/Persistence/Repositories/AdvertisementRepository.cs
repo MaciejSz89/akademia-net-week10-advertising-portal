@@ -23,6 +23,7 @@ namespace AdvertisingPortal.Persistence.Repositories
         public Advertisement GetAdvertisement(string userId, int advertisementId)
         {
             return _context.Advertisements
+                           .Include(x => x.User)
                            .Include(x => x.Pictures)
                            .Single(x => x.UserId == userId
                                      && x.Id == advertisementId);
@@ -57,6 +58,7 @@ namespace AdvertisingPortal.Persistence.Repositories
         {
             var advertisementsQuery = _context.Advertisements
                                               .Include(x => x.Pictures)
+                                              .Include(x => x.User)
                                               .AsQueryable();
 
             if (getAdvertisementParams.PriceFrom != null)
@@ -73,23 +75,23 @@ namespace AdvertisingPortal.Persistence.Repositories
             if (getAdvertisementParams.CategoryIds != null && getAdvertisementParams.CategoryIds.Any())
                 advertisementsQuery = advertisementsQuery.Where(x => getAdvertisementParams.CategoryIds.Contains(x.CategoryId));
 
-            //switch (getAdvertisementParams.SortAdvertisements)
-            //{
-            //    case SortAdvertisements.ByDateOfPublicationDescending:
-            //        advertisementsQuery = advertisementsQuery.OrderByDescending(x => x.DateOfPublication);
-            //        break;
-            //    case SortAdvertisements.ByDateOfPublicationAscending:
-            //        advertisementsQuery = advertisementsQuery.OrderBy(x => x.DateOfPublication);
-            //        break;
-            //    case SortAdvertisements.ByPriceAscending:
-            //        advertisementsQuery = advertisementsQuery.OrderBy(x => x.Price);
-            //        break;
-            //    case SortAdvertisements.ByPriceDescending:
-            //        advertisementsQuery = advertisementsQuery.OrderByDescending(x => x.Price);
-            //        break;
-            //    default:
-            //        break;
-            //}
+            switch (getAdvertisementParams.SortAdvertisements)
+            {
+                case SortAdvertisements.ByDateOfPublicationDescending:
+                    advertisementsQuery = advertisementsQuery.OrderByDescending(x => x.DateOfPublication);
+                    break;
+                case SortAdvertisements.ByDateOfPublicationAscending:
+                    advertisementsQuery = advertisementsQuery.OrderBy(x => x.DateOfPublication);
+                    break;
+                case SortAdvertisements.ByPriceAscending:
+                    advertisementsQuery = advertisementsQuery.OrderBy(x => x.Price);
+                    break;
+                case SortAdvertisements.ByPriceDescending:
+                    advertisementsQuery = advertisementsQuery.OrderByDescending(x => x.Price);
+                    break;
+                default:
+                    break;
+            }
 
 
             return advertisementsQuery.ToList();

@@ -142,7 +142,7 @@
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("AdvertisementsTable", "Advertisement")',
-                data: formData,
+                data: $('#filterForm').serialize(),
                 success: function (data) {
                     $('#advertisementsPartial').html(data);
                     $('#btnTableView').addClass('btn-link');
@@ -159,7 +159,7 @@
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("AdvertisementsCards", "Advertisement")',
-                data: formData,
+                data: $('#filterForm').serialize(),
                 success: function(data){
                     $('#advertisementsPartial').html(data);            
                     $('#btnCardsView').addClass('btn-link');
