@@ -113,7 +113,6 @@
         $(document).ready(function () {
             
             $('#filterForm').submit(function () {
-                console.log($(this).serialize());
                 $.ajax({
                         type: 'POST',
                         url: '@Url.Action("AdvertisementsTable", "Advertisement")',
@@ -126,12 +125,7 @@
                     },
                     dataType: 'html'
             }); 
-
-                //if ($('#advertisementsPartial').has('.table')) {
-                //    displayTable($(this).serialize());
-                //} else if ($('#advertisementsPartial').has('.card')) {
-                //    displayCards($(this).serialize());
-                //}              
+   
 
                 return false;
             })

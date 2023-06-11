@@ -18,7 +18,7 @@ namespace AdvertisingPortal.Persistence.Repositories
             _context.Pictures.AddRange(pictures);
         }
 
-        public void DeletePictures(string userId, IEnumerable<int> picturesToDeleteId)
+        public void DeletePictures(string? userId, IEnumerable<int> picturesToDeleteId)
         {
             var picturesToDelete = _context.Pictures
                                            .Where(x => x.UserId == userId 
@@ -26,5 +26,27 @@ namespace AdvertisingPortal.Persistence.Repositories
 
             _context.Pictures.RemoveRange(picturesToDelete);
         }
+
+        public ICollection<Picture> GetPictures(string? userId, int advertisementId)
+        {
+            return _context.Pictures.Where(x => x.UserId == userId 
+                                             && x.AdvertisementId == advertisementId).ToList();
+        }
+
+        public void SetAsMainPicture(int id, string? userId)
+        {
+            var newMainPicture = _context.Pictures
+                                         .Single(x => x.Id == id 
+                                                   && x.UserId == userId);
+
+            var advertisementPictures = _context.Pictures
+                                                .Where(x => x.AdvertisementId == newMainPicture.AdvertisementId).ToList();
+
+            advertisementPictures.ForEach(x => x.IsMainPicture = false);
+
+            newMainPicture.IsMainPicture = true;
+
+        }
+
     }
 }

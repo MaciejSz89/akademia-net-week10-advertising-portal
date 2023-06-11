@@ -1,4 +1,5 @@
 ﻿using AdvertisingPortal.Core.Models.Domains;
+using AdvertisingPortal.Core.Models.Services;
 using AdvertisingPortal.Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using MyTasks.Persistence.Extensions;
@@ -7,6 +8,12 @@ namespace AdvertisingPortal.Controllers
 {
     public class MessageController : Controller
     {
+        public IMessageService MessageService { get; set; }
+
+        public MessageController(IMessageService messageService)
+        {
+            MessageService = messageService;
+        }
         public IActionResult Messages(string interlocutorId)
         {
             var userId = User.GetUserId();
@@ -70,6 +77,7 @@ namespace AdvertisingPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult SendMessage(Message message)
         {
             if (!ModelState.IsValid)
@@ -138,6 +146,22 @@ namespace AdvertisingPortal.Controllers
 
 
             return PartialView("_MessagesHistory", vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SendAdvertisementMessage(Message message)
+        {
+            try
+            {
+                MessageService.SendMessage(message);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+
+            return Json(new { success = true });
         }
     }
 }

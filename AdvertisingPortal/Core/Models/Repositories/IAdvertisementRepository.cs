@@ -11,5 +11,6 @@ namespace AdvertisingPortal.Core.Models.Repositories
         IEnumerable<Advertisement> GetAdvertisements(string userId);
         IEnumerable<Advertisement> GetAdvertisements(GetAdvertisementsParams getAdvertisementParams);
         void UpdateAdvertisement(Advertisement advertisement);
+        public void DeleteAdvertisement(int id, string userId);
     }
 }

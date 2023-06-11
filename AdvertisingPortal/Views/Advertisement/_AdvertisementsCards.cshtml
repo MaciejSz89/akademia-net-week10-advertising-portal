@@ -24,6 +24,14 @@
                         <div class="table-nickname-caption">Dodane przez: @advertisement.User?.UserName</div>
                         <div class="table-nickname-caption">@advertisement.Location - @advertisement.DateOfPublication.ToString("f")</div>
                     </div>
+                    @if (!string.IsNullOrWhiteSpace(ViewBag.UserId))
+                    {
+                        <button class="btn btn-danger"
+                                onclick="deleteAdvertisement(@advertisement.Id, this)">
+                            Usuń
+                        </button>
+                    }
+                    
                 </div>
             </div>
         </div>

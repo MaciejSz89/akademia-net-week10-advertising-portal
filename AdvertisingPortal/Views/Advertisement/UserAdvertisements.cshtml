@@ -43,9 +43,6 @@
 
 
 
-
-
-
 @section Scripts
 {
     <script type="text/javascript">
@@ -85,6 +82,25 @@
 
         function viewAdvertisement(id) {
             location.href = '@Url.Action("CreateAdvertisement", "Advertisement")' + '?id=' + id;
+        }
+
+        function deleteAdvertisement(id, button){
+            event.stopPropagation();
+            if(confirm("Czy na pewno chcesz usunąć to ogłoszenie?") == true){
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("DeleteAdvertisement", "Advertisement")',
+                    data: { id : id },
+                    success: function (data) {
+                        $(button).parents("tr").remove();
+                        $(button).parents(".card").remove();
+                    },
+                    error: function (data) {
+                        alert(data.message);
+                    },
+                    dataType: 'json'
+                });
+            }
         }
     </script>
 }

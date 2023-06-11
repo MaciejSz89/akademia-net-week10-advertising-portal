@@ -4,6 +4,7 @@ using AdvertisingPortal.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdvertisingPortal.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230611183408_IsRead_Column_Added_In_Messages_Table")]
+    partial class IsRead_Column_Added_In_Messages_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,7 +143,7 @@ namespace AdvertisingPortal.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Message", b =>
+            modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Conversation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -152,8 +154,24 @@ namespace AdvertisingPortal.Persistence.Migrations
                     b.Property<int>("AdvertisementId")
                         .HasColumnType("int");
 
+                    b.HasKey("Id");
+
+                    b.ToTable("Conversations");
+                });
+
+            modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ConversationId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
@@ -171,7 +189,7 @@ namespace AdvertisingPortal.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdvertisementId");
+                    b.HasIndex("ConversationId");
 
                     b.HasIndex("ReceiverId");
 
@@ -451,9 +469,9 @@ namespace AdvertisingPortal.Persistence.Migrations
 
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Message", b =>
                 {
-                    b.HasOne("AdvertisingPortal.Core.Models.Domains.Advertisement", null)
+                    b.HasOne("AdvertisingPortal.Core.Models.Domains.Conversation", null)
                         .WithMany("Messages")
-                        .HasForeignKey("AdvertisementId")
+                        .HasForeignKey("ConversationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -546,14 +564,17 @@ namespace AdvertisingPortal.Persistence.Migrations
 
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Advertisement", b =>
                 {
-                    b.Navigation("Messages");
-
                     b.Navigation("Pictures");
                 });
 
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Category", b =>
                 {
                     b.Navigation("Advertisements");
+                });
+
+            modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.Conversation", b =>
+                {
+                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("AdvertisingPortal.Core.Models.Domains.ApplicationUser", b =>

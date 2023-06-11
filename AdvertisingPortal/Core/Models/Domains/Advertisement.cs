@@ -13,6 +13,7 @@ namespace AdvertisingPortal.Core.Models.Domains
         public Advertisement()
         {
             Pictures = new Collection<Picture>();
+            Messages = new Collection<Message>();
         }
         public int Id { get; set; }
 
@@ -56,6 +57,7 @@ namespace AdvertisingPortal.Core.Models.Domains
         public ApplicationUser? User { get; set; }
 
         public ICollection<Picture> Pictures { get; set; }
+        public ICollection<Message> Messages { get; set; }
 
     }
 }

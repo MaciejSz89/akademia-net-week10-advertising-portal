@@ -20,22 +20,29 @@ namespace AdvertisingPortal.Controllers
 
         private IAdvertisementService _advertisementService;
         private ICategoryService _categoryService;
-        private IPictureService _pictureService;
 
-        public AdvertisementController(IWebHostEnvironment _environment, IAdvertisementService advertisementService, ICategoryService categoryService, IPictureService pictureService)
+        public AdvertisementController(IWebHostEnvironment _environment, IAdvertisementService advertisementService, ICategoryService categoryService)
         {
             Environment = _environment;
             _advertisementService = advertisementService;
             _categoryService = categoryService;
-            _pictureService = pictureService;
         }
 
         [AllowAnonymous]
         public IActionResult ViewAdvertisement(int id)
         {
             var advertisement = _advertisementService.GetAdvertisement(id);
+            var userId = User.GetUserId();
 
-            return View(advertisement);
+
+            var vm = new ViewAdvertisementViewModel(advertisement, 
+                                                    userId != null && advertisement.UserId != userId ? new Message { SenderId = userId, 
+                                                                                                                     ReceiverId = advertisement.UserId,
+                                                                                                                     AdvertisementId = advertisement.Id, 
+                                                    } 
+                                                                                                     : null);
+
+            return View(vm);
         }
 
         [AllowAnonymous]
@@ -56,6 +63,8 @@ namespace AdvertisingPortal.Controllers
             var userId = User.GetUserId();
 
             var advertisements = _advertisementService.GetAdvertisements(userId);
+
+            ViewBag.UserId = userId;
 
             return View(advertisements);
         }
@@ -91,6 +100,8 @@ namespace AdvertisingPortal.Controllers
 
             var advertisements = _advertisementService.GetAdvertisements(userId);
 
+            ViewBag.UserId = userId;
+
             return PartialView("_AdvertisementsTable", advertisements);
         }
 
@@ -100,6 +111,8 @@ namespace AdvertisingPortal.Controllers
             var userId = User.GetUserId();
 
             var advertisements = _advertisementService.GetAdvertisements(userId);
+
+            ViewBag.UserId = userId;
 
             return PartialView("_AdvertisementsCards", advertisements);
         }
@@ -118,7 +131,8 @@ namespace AdvertisingPortal.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images, int[] deletedPictures)
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images, int[] deletedPictures, int? mainPicture)
         {
             var userId = User.GetUserId();
 
@@ -134,29 +148,32 @@ namespace AdvertisingPortal.Controllers
             {
                 var vm = CreateCreateAdvertisementViewModel(userId, advertisement.Id);
                 return View(nameof(CreateAdvertisement), vm);
-            }
-
-            if (images != null && images.Any())
-            {
-                if (advertisement.Id == 0)
-                    _advertisementService.AddPicturesToAdvertisement(advertisement, images);
-                else
-                    _pictureService.AddPictures(userId, advertisement.Id, images);
-            }
-
-
-            if (deletedPictures != null && deletedPictures.Any())
-                _pictureService.DeletePictures(userId, deletedPictures);
-
+            }          
 
 
             if (advertisement.Id == 0)
-                _advertisementService.AddAdvertisement(advertisement);
+                _advertisementService.AddAdvertisement(advertisement, images, mainPicture);
             else
-                _advertisementService.UpdateAdvertisement(advertisement);
+                _advertisementService.UpdateAdvertisement(advertisement, images, deletedPictures, mainPicture);
 
 
-            return RedirectToAction(nameof(Advertisements));
+            return RedirectToAction(nameof(UserAdvertisements));
+        }
+
+        [HttpPost]
+        public IActionResult DeleteAdvertisement(int id)
+        {          
+            try
+            {
+                var userId = User.GetUserId();
+                _advertisementService.DeleteAdvertisement(id, userId);
+            }
+            catch (Exception ex)
+            {
+                //logowanie
+                return Json(new { success = false, message = ex.Message });
+            }
+            return Json(new { success = true });
         }
 
 
@@ -166,5 +183,7 @@ namespace AdvertisingPortal.Controllers
                                                       _categoryService.GetCategories(),
                                                       advertisementId == 0 ? "Dodawanie ogłoszenia" : "Edycja ogłoszenia");
         }
+
+        
     }
 }

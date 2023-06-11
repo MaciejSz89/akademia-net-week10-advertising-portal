@@ -2,6 +2,8 @@
 using AdvertisingPortal.Core.Models;
 using AdvertisingPortal.Core.Models.Domains;
 using AdvertisingPortal.Core.Models.Services;
+using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 
 namespace AdvertisingPortal.Persistence.Services
 {
@@ -14,26 +16,76 @@ namespace AdvertisingPortal.Persistence.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void AddAdvertisement(Advertisement advertisement)
+        public void AddAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images, int? mainPictureId)
         {
-            if (advertisement.Pictures != null && !advertisement.Pictures.Where(x => x.IsMainPicture).Any())
-                advertisement.Pictures.First().IsMainPicture = true;
+
+            AddPicturesToAdvertisement(advertisement, images, mainPictureId, null);
 
             _unitOfWork.Advertisement.AddAdvertisement(advertisement);
             _unitOfWork.Complete();
         }
 
-        public void AddPicturesToAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images)
+        private void AddPicturesToAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images, int? mainPictureId, IEnumerable<int>? picturesToDeleteId)
         {
-            foreach (var image in images)
+
+            if (advertisement.Id != 0)
+                advertisement.Pictures = _unitOfWork.Picture.GetPictures(advertisement.UserId, advertisement.Id);
+
+
+            if (picturesToDeleteId != null && picturesToDeleteId.Any())
             {
-                using var stream = new MemoryStream();
-                image.CopyTo(stream);
-                var picture = new Picture(stream.ToArray());
-                picture.FileName = image.FileName;
-                picture.UserId = advertisement.UserId;
-                advertisement.Pictures.Add(picture);
+                _unitOfWork.Picture.DeletePictures(advertisement.UserId, picturesToDeleteId);
+                advertisement.Pictures = advertisement.Pictures
+                                                          .GroupJoin(picturesToDeleteId, x => x.Id, y => y, (x, y) => new { p = x, pd = y })
+                                                          .Where(x => x.pd.Count() == 0)
+                                                          .Select(x => x.p)
+                                                          .ToList();
+
             }
+
+
+
+            AddNewPicturesToAdvertisement(advertisement, images);
+
+            SetMainPicture(advertisement.Pictures, mainPictureId);
+
+        }
+
+        private void AddNewPicturesToAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images)
+        {
+            if (images != null && images.Any())
+            {
+                foreach (var image in images)
+                {
+                    using var stream = new MemoryStream();
+                    image.CopyTo(stream);
+                    var picture = new Picture(stream.ToArray());
+                    picture.FileName = image.FileName;
+                    picture.UserId = advertisement.UserId;
+                    advertisement.Pictures.Add(picture);
+                }
+            }
+        }
+
+        private void SetMainPicture(IEnumerable<Picture> pictures, int? mainPictureId)
+        {
+            if (pictures == null || !pictures.Any())
+                return;
+
+            foreach (var picture in pictures)
+            {
+                picture.IsMainPicture = false;
+            }
+
+            if (mainPictureId != null && mainPictureId != 0 && pictures.SingleOrDefault(x => x.Id == mainPictureId) != null)
+            {
+                pictures.Single(x => x.Id == mainPictureId).IsMainPicture = true;
+                return;
+            }
+
+
+            pictures.First().IsMainPicture = true;
+
 
         }
 
@@ -62,9 +114,19 @@ namespace AdvertisingPortal.Persistence.Services
             return _unitOfWork.Advertisement.GetAdvertisements(getAdvertisementParams);
         }
 
-        public void UpdateAdvertisement(Advertisement advertisement)
+        public void UpdateAdvertisement(Advertisement advertisement, IEnumerable<IFormFile> images, IEnumerable<int> picturesToDeleteId, int? mainPictureId)
         {
+
+            AddPicturesToAdvertisement(advertisement, images, mainPictureId, picturesToDeleteId);
+
+
             _unitOfWork.Advertisement.UpdateAdvertisement(advertisement);
+            _unitOfWork.Complete();
+        }
+
+        public void DeleteAdvertisement(int id, string userId)
+        {
+            _unitOfWork.Advertisement.DeleteAdvertisement(id, userId);
             _unitOfWork.Complete();
         }
     }

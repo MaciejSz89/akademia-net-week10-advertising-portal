@@ -26,7 +26,9 @@ body {
 td{
     height: inherit;
 }
-
+td div{
+    height: inherit;
+}
 .table-nickname-caption{
     font-size: 10px;
 }

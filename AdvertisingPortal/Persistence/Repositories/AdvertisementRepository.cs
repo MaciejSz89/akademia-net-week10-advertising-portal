@@ -17,7 +17,26 @@ namespace AdvertisingPortal.Persistence.Repositories
 
         public void AddAdvertisement(Advertisement advertisement)
         {
+            if (advertisement.Pictures != null
+             && advertisement.Pictures.Any()
+             && advertisement.Pictures.Count(x => x.IsMainPicture) > 1)
+                throw new ArgumentException("More than one picture set as main");
+
+            if (advertisement.Pictures != null
+             && advertisement.Pictures.Any()
+             && advertisement.Pictures.Count(x => x.IsMainPicture) == 0)
+                throw new ArgumentException("None picture set as main");
+
             _context.Advertisements.Add(advertisement);
+        }
+
+        public void DeleteAdvertisement(int id, string userId)
+        {
+            var advertisementToDelete = _context.Advertisements
+                                                .Include(x => x.Pictures)
+                                                .Single(x => x.Id == id
+                                                          && x.UserId == userId);
+            _context.Advertisements.Remove(advertisementToDelete);
         }
 
         public Advertisement GetAdvertisement(string userId, int advertisementId)
