@@ -1,0 +1,50 @@
+﻿@using AdvertisingPortal.Core.Models;
+
+@model Conversation
+
+@if (Model.Messages != null && Model.Messages.Any())
+{
+    <div class="col-lg-8">
+        <div class="container">
+            @foreach (var message in Model.Messages)
+            {
+                @if (message.Sender?.Id == Model.User?.Id)
+                {
+                    <div class="row justify-content-end me-4">
+                        <div class="alert alert-primary col-8 show" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="mb-2">
+                                <strong class="me-auto">@message.Sender?.UserName</strong>
+                            </div>
+                            <div>
+                                @message.Content
+                            </div>
+                            <div class="text-end">
+                                <small>@message.SendTime.ToString("f")</small>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+                else if (message.Sender?.Id == Model.Interlocutor?.Id)
+                {
+                    <div class="row justify-content-start me-4">
+                        <div class="alert alert-secondary col-8" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="mb-2">
+                                <strong class="me-auto">@message.Sender?.UserName</strong>
+                            </div>
+                            <div>
+                                @message.Content
+                            </div>
+                            <div class="text-end">
+                                <small>@message.SendTime.ToLocalTime().ToString("f")</small>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+
+    </div>
+}

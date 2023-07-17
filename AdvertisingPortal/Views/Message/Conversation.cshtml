@@ -1,0 +1,67 @@
+﻿@using AdvertisingPortal.Core.Models;
+
+@model ConversationViewModel
+
+@{
+    ViewData["Title"] = "Rozmowa z użytkownikiem " + @Model.Conversation?.Interlocutor?.UserName;
+}
+
+<h3>Rozmowa z użytkownikiem @Model.Conversation?.Interlocutor?.UserName</h3>
+
+
+
+<div class="container">
+    <div id="conversationHistory" class="row justify-content-start">
+        @await Html.PartialAsync("_ConversationHistory", Model.Conversation)
+    </div>
+    @if (!(Model.Message is null))
+    {
+        <div class="row col-lg-8">
+            <form id="messageForm" class="row align-items-center">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => Model.Message.SenderId)
+                @Html.HiddenFor(x => Model.Message.ReceiverId)
+                @Html.HiddenFor(x => Model.Message.AdvertisementId)
+
+                <div class="form-group mb-2">
+                    @Html.TextAreaFor(x => Model.Message.Content, 
+                                      new {  @class = "form-control",
+                                             placeholder = "Tu wpisz wiadomość..." })
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Wyślij wiadomość
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    }
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#messageForm').submit(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SendConversationMessage", "Message")',
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        $('#conversationHistory').html(data);
+                    },
+                    error: function (data) {
+                        alert(data.message)
+                    },
+                    dataType: "html"
+                });
+
+                return false;
+            })
+        });
+    </script>
+}
+
+

@@ -1,0 +1,175 @@
+﻿@using AdvertisingPortal.Core.ViewModels;
+@model ViewAdvertisementViewModel
+
+@{
+    ViewData["Title"] = Model.Advertisement.Title;
+}
+
+<div class="container">
+
+    <div class="row mb-3">
+        <div class="col-12 fs-2 fw-bold">
+            @Model.Advertisement.Title
+        </div>
+    </div>
+
+    @if (Model.Advertisement.Pictures != null && Model.Advertisement.Pictures.Any())
+    {
+        <div class="row mb-4">
+            <div id="carouselPictures" class="col-12 carousel slide d-flex flex-column" data-bs-ride="carousel">
+                <div>
+
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="h-100 d-flex justify-content-center">
+                                <img class="d-block h-100"
+                                @*src="https://picsum.photos/2000/1000" />*@
+                                     src="data:image;base64,@System.Convert.ToBase64String(Model.Advertisement.Pictures.ElementAt(0).Image)" />
+                            </div>
+
+                        </div>
+
+                        @for (int i = 1; i < Model.Advertisement.Pictures.Count(); i++)
+                        {
+                            <div class="carousel-item">
+                                <div class="h-100 d-flex justify-content-center">
+
+                                    <img class="d-block h-100"
+                                    @*src="https://picsum.photos/2000/1000" />*@
+                                         src="data:image;base64,@System.Convert.ToBase64String(Model.Advertisement.Pictures.ElementAt(i).Image)" />
+                                </div>
+                            </div>
+                        }
+                        <button class="carousel-control-prev w-auto px-4" type="button" data-bs-target="#carouselPictures" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Poprzedni</span>
+                        </button>
+                        <button class="carousel-control-next w-auto px-4" type="button" data-bs-target="#carouselPictures" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Następny</span>
+                        </button>
+
+                    </div>
+
+
+                </div>
+                <div>
+                    <div class="carousel-indicators position-relative justify-content-center flex-wrap align-content-around align-items-baseline ms-0 me-0 ">
+                        <button style="width: auto" type="button" data-bs-target="#carouselPictures" data-bs-slide-to="0" class="active img-thumbnail" aria-current="true">
+                            <img class="d-block h-100 w-auto"
+                            @*src="https://picsum.photos/2000/1000" />*@
+                                 src="data:image;base64,@System.Convert.ToBase64String(Model.Advertisement.Pictures.ElementAt(0).Image)" />
+                        </button>
+
+                        @for (int i = 1; i < Model.Advertisement.Pictures.Count(); i++)
+                        {
+                            <button style="width: auto" type="button" data-bs-target="#carouselPictures" data-bs-slide-to="@i" class="img-thumbnail">
+                                <img class="d-block h-100"
+                                @*src="https://picsum.photos/2000/1000" />*@
+                                     src="data:image;base64,@System.Convert.ToBase64String(Model.Advertisement.Pictures.ElementAt(i).Image)" />
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row mb-3">
+        <div class="col-5 fs-5">
+            @Model.Advertisement.Location - @Model.Advertisement.DateOfPublication.ToLocalTime().ToString("f")
+            
+        </div>
+        <div class="col-4">
+
+        </div>
+        <div class="col-3 text-end fs-6">
+            Dodane przez <a class="text-decoration-none link-dark fw-bold">@Model.Advertisement.User?.UserName</a>
+        </div>
+    </div>
+    <div class="row mb-3 fw-bold">
+        <div class="col-12 fs-4">
+            @Model.Advertisement.Price.ToString("0.00") zł
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-12">
+            <p class="fs-6 text-justify">
+                @Model.Advertisement.Description
+            </p>
+        </div>
+    </div>
+    
+    @if (Model.Message != null)
+    {
+        <form id="messageForm" , enctype="multipart/form-data">
+            @{#pragma warning disable CS8602}
+            
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(x => x.Message.AdvertisementId)
+            @Html.HiddenFor(x => x.Message.ReceiverId)
+            @Html.HiddenFor(x => x.Message.SenderId)
+
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="form-group mb-2">
+                        @Html.LabelFor(x => x.Message.Content,
+                    new { @class="form-label" })
+                        @Html.TextAreaFor(x => x.Message.Content,
+                    new { @class = "form-control"})
+                        @Html.ValidationMessageFor(x => x.Message.Content,
+                    "",
+                    new { @class = "text-danger" })
+                    </div>
+                    <div class=" d-flex justify-content-end">
+                        <button type="submit"
+                                class="btn btn-primary btn-lg">
+                            Napisz wiadomość
+                        </button>
+                    </div>
+                </div>
+                </div>
+            
+            @{#pragma warning restore CS8602}
+        </form>
+               
+    }
+    
+</div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            $('#messageForm').submit(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SendAdvertisementMessage", "Message")',
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        if(data.success){
+                            $('#messageForm').before('<div class="alert alert-success" role="alert">Wiadmość została wysłana</div>');
+                            $('#messageForm').remove();
+                        }
+                        else{
+                            alert(data.message);
+                        }
+
+                    },
+                    error: function (data) {
+                        alert(data.message);
+                    },
+                    dataType: 'json'
+                });
+
+
+                return false;
+            })
+        });
+
+    </script>
+}
+

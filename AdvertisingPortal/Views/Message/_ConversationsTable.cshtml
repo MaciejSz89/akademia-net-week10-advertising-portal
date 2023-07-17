@@ -1,0 +1,64 @@
+﻿@using AdvertisingPortal.Core.Models.Domains
+@using AdvertisingPortal.Core.ViewModels
+
+@model ConversationsViewModel
+
+@if (!string.IsNullOrWhiteSpace(@Model.UserId) && Model.Conversations != null && Model.Conversations.Any())
+{
+    <table class="table table-bordered table-stripped table-hover">
+        <thead>
+            <tr class="messages">
+                <th scope="col">
+                    Ogłoszenie
+                </th>
+                <th scope="col">
+                    Użytkownik
+                </th>
+                <th scope="col">
+                    Wiadomość
+                </th>
+                <th>
+                    Wysłano
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var conversation in Model.Conversations)
+            {
+                if (!(conversation.Interlocutor is null) && !(conversation.Advertisement is null)
+                 && !(conversation.Messages is null) && conversation.Messages.Any())
+                {
+                    <tr class="messages" onclick="window.location.href='@Url.Action("Conversation", "Message", new {
+                                                                                                                    interlocutorId = conversation.Interlocutor.Id, 
+                                                                                                                    advertisementId = conversation.Advertisement.Id
+                                                                                                                   })'">
+                        <td>
+                            <strong>@conversation.Advertisement.Id.ToString("D8")</strong>  - @conversation.Advertisement.Title
+                        </td>
+                        <td>
+                            @conversation.Interlocutor.UserName
+                        </td>
+                        <td>
+                            @if (conversation.Interlocutor.Id == conversation.Messages.OrderBy(x => x.SendTime).Last().SenderId)
+                            {
+                                <strong>@conversation.Interlocutor.UserName:</strong> @conversation.Messages.OrderBy(x => x.SendTime).Last().Content
+                            }
+                            else
+                            {
+                                <strong>Ja:</strong>  @conversation.Messages.OrderBy(x => x.SendTime).Last().Content
+                            }
+                        </td>
+                        <td>
+                            @conversation.Messages.OrderBy(x => x.SendTime).Last().SendTime.ToLocalTime().ToString("f")
+                        </td>
+                    </tr>
+                }
+                
+            }
+            
+
+        </tbody>
+
+
+    </table>
+}

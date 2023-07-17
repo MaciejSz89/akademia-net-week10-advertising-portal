@@ -1,0 +1,141 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
+td{
+    height: inherit;
+}
+td div{
+    height: inherit;
+}
+.table-nickname-caption{
+    font-size: 10px;
+}
+
+tr.messages{
+    height: auto!important;
+}
+
+.bi{
+    font-size:20px;
+}
+
+
+.card {
+    width: 280px;
+    height: 500px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background: #fff;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10;
+    overflow: hidden
+}
+
+.card .backgroundEffect {
+    bottom: 0;
+    height: inherit;
+    width: 100%;
+}
+
+.card:hover {
+    color: #fff;
+    transform: scale(1.025);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 10px
+}
+
+.card:hover .backgroundEffect {
+    bottom: 0;
+    height: 520px;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    background: #1b9ce3;
+    animation: popBackground 0.3s ease-in
+}
+
+.carousel-inner{
+    height: 700px;
+    background-color: lightgray;
+}
+
+.carousel-item{
+    height: 100%;
+}
+
+button.img-thumbnail {
+    height: 100px !important;
+    width: 200px !important;
+    display: flex;
+    justify-content: center;
+    background-color: lightgray !important;
+}
+
+.table tr {
+    cursor:pointer;
+    height:100px;
+}
+
+.td-img-thumbnail{
+    height: inherit!important;
+    width: 200px;
+}
+
+.td-img-thumbnail div{
+    width: inherit!important;
+    height: inherit!important;
+    display: flex;
+    justify-content: center
+}
+
+.card {
+    width: 24rem;
+}
+
+.card-img-top {
+    display: flex;
+    justify-content: center;
+    background-color: lightgray;
+    height: 300px!important;
+}
+
+.card-img-top img {
+    height: 100%!important;
+    width: auto;
+}
+
+a{
+    cursor: pointer;
+}
+
+.text-justify{
+    text-align: justify;
+}
+
+textarea{
+    height: 400px;
+}
+
+

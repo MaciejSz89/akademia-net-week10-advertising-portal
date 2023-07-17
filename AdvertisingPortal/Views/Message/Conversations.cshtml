@@ -1,0 +1,30 @@
+﻿@using AdvertisingPortal.Core.Models.Domains
+
+@model ConversationsViewModel
+
+@{
+    ViewData["Title"] = "Wiadomości";
+    Layout = "_Layout";
+}
+
+<h1 class="mb-5">Wiadomości</h1>
+
+<div class="container-fluid">
+    @if (Model.Conversations != null && Model.Conversations.Any())
+    {
+        <div class="row">
+            <div id="advertisementsPartial" class="col-12">
+                @await Html.PartialAsync("_ConversationsTable", Model)
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="alert alert-info col-12 text-center">
+                Brak wiadomości
+            </div>
+        </div>
+    }
+</div>
+

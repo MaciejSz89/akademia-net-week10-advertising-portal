@@ -1,0 +1,113 @@
+﻿@using AdvertisingPortal.Core.Models.Domains;
+
+@model IEnumerable<Advertisement>
+
+@{
+    ViewData["Title"] = "Moje ogłoszenia";
+}
+
+<h1 class="mb-4">Moje ogłoszenia</h1>
+
+<div class="container-fluid">
+    <div class="row">
+        <button class="btn btn-primary w-auto"
+                onclick="window.location.href='@Url.Action("CreateAdvertisement", "Advertisement")'">
+            Dodaj ogłoszenie
+        </button>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+        <div class="row mb-3">
+    
+            <div class="col-12 d-flex justify-content-end">
+                <button id="btnTableView" class="btn btn-sm btn-link" onclick="displayTable()">
+                    <i class="bi bi-table"></i>
+                </button>
+                <button id="btnCardsView" class="btn btn-sm" onclick="displayCards()">
+                    <i class="bi bi-grid"></i>
+                </button>          
+            </div>        
+        </div>
+    
+        <div class="row">
+            <div id="advertisementsPartial" class="col-12">
+                @await Html.PartialAsync("_AdvertisementsTable", Model)
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="alert alert-info col-12 text-center">
+                Brak ogłoszeń
+            </div>
+        </div>
+    }
+
+
+</div>
+
+
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function displayTable(){
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UserAdvertisementsTable", "Advertisement")',
+                data: {},
+                success: function (data) {
+                    $('#advertisementsPartial').html(data);
+                    $('#btnTableView').addClass('btn-link');
+                    $('#btnCardsView').removeClass('btn-link');
+                },
+                error: function(data){
+                    alert(data.message);
+                },
+                dataType: 'html'
+            });         
+        }
+
+        function displayCards(){
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UserAdvertisementsCards", "Advertisement")',
+                data: {},
+                success: function(data){
+                    $('#advertisementsPartial').html(data);            
+                    $('#btnCardsView').addClass('btn-link');
+                    $('#btnTableView').removeClass('btn-link');
+                },
+                error: function(data){
+                    alert(data.message);
+                },
+                dataType: 'html'
+            });
+        }
+
+        function viewAdvertisement(id) {
+            location.href = '@Url.Action("CreateAdvertisement", "Advertisement")' + '?id=' + id;
+        }
+
+        function deleteAdvertisement(id, button){
+            event.stopPropagation();
+            if(confirm("Czy na pewno chcesz usunąć to ogłoszenie?") == true){
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("DeleteAdvertisement", "Advertisement")',
+                    data: { id : id },
+                    success: function (data) {
+                        $(button).parents("tr").remove();
+                        $(button).parents(".card").remove();
+                    },
+                    error: function (data) {
+                        alert(data.message);
+                    },
+                    dataType: 'json'
+                });
+            }
+        }
+    </script>
+}

@@ -1,0 +1,143 @@
+﻿@model CreateAdvertisementViewModel
+
+@{
+    ViewData["Title"] = Model.Heading;
+}
+
+<h2>@Model.Heading</h2>
+
+<div class="container">
+    <div class="row">
+        <p class="alert alert-info mt-4 mb-4 col-lg-6">
+            Pola tytuł, miejscowość, kategoria i opis są <strong>wymagane</strong>
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            @using (Html.BeginForm("CreateAdvertisement", "Advertisement", FormMethod.Post, new { id = "createAdvertisementForm", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(x => x.Advertisement.Id)
+                @Html.HiddenFor(x => x.Advertisement.UserId)
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(x => x.Advertisement.Title,
+                                   new { @class="form-label" })
+                    @Html.TextBoxFor(x => x.Advertisement.Title,
+                                     new { @class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Advertisement.Title,
+                                               "",
+                                               new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(x => x.Advertisement.Location,
+                                   new { @class="form-label" })
+                    @Html.TextBoxFor(x => x.Advertisement.Location,
+                                     new { @class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Advertisement.Location,
+                                               "",
+                                               new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(x => x.Advertisement.CategoryId,
+                                   new { @class="form-label" })
+                    @Html.DropDownListFor(x => x.Advertisement.CategoryId,
+                                          new SelectList(Model.Categories, "Id", "Name"),
+                                          "---wybierz kategorię---",
+                                          new { @class = "form-select" })
+                    @Html.ValidationMessageFor(x => x.Advertisement.CategoryId)
+                </div>
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(x => x.Advertisement.Price,
+                                   "Cena (zł)",
+                                   new { @class = "form-label"})
+                    @Html.TextBoxFor(x => x.Advertisement.Price,
+                                     "{0:N2}",
+                                     new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Advertisement.Price,
+                                               "",
+                                               new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(x => x.Advertisement.Description,
+                                   new { @class="form-label" })
+                    @Html.TextAreaFor(x => x.Advertisement.Description,                                      
+                                      new { @class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Advertisement.Description,
+                                               "",
+                                               new { @class = "text-danger" })
+                </div>
+
+
+
+                @if (Model.Advertisement.Pictures != null && Model.Advertisement.Pictures.Any())
+                {
+                    <div class="form-group mb-2">
+                        <div class="row">
+                            <label class="mb-1">Przesłane zdjęcia</label>
+                            @foreach (var picture in Model.Advertisement.Pictures)
+                            {
+                                <div class="mb-2 d-flex flex-column">
+                                    <div class="img-container">
+                                        <img src="data:image;base64,@System.Convert.ToBase64String(picture.Image)" class="img-thumbnail" />
+                                    </div>                                  
+
+                                    <div class="text-center">
+                                        <input type="radio" name="mainPicture" value="@picture.Id" checked="@picture.IsMainPicture" /> Główne
+                                    </div>
+
+                                    <div class="text-center">
+                                        <input type="checkbox" name="deletedPictures" value="@picture.Id" /> Usuń
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+
+
+                <div class="form-group mb-2">
+                    <label for="images" class="form-label">Prześlij zdjęcia</label>
+                    <input type="file" name="images" id="images" multiple class="form-control" />
+                </div>
+
+
+
+               
+            }
+        </div>
+ 
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <button type="submit"
+                    form="createAdvertisementForm"
+                    class="btn btn-primary btn-lg mt-2">
+                Zapisz
+            </button>
+
+            <button class="btn btn-secondary btn-lg mt-2"
+                    onclick="location.href='@Url.Action("Advertisements", "Advertisement")'">
+                Anuluj
+            </button>
+        </div>
+        
+    </div>
+       
+
+    
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+    </script>
+}

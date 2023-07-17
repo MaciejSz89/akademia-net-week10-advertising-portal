@@ -1,0 +1,41 @@
+﻿@using AdvertisingPortal.Core.Models.Domains;
+
+@model IEnumerable<Advertisement>
+
+
+<div class="d-flex justify-content-evenly flex-wrap">
+    @foreach (var advertisement in Model)
+    {
+        <div class="card mb-3"
+             onclick="viewAdvertisement(@advertisement.Id)">
+            <div class="backgroundEffect d-flex flex-column">
+                @if (advertisement.Pictures != null && advertisement.Pictures.Any())
+                {
+                    <div class="card-img-top">
+                        @*<img src="https://picsum.photos/2000/1000" alt="...">*@
+                        <img src="data:image;base64,@System.Convert.ToBase64String(advertisement.Pictures.Single(x=>x.IsMainPicture).Image)" class="card-img-top" alt="...">
+                    </div>
+                    
+                }
+                <div class="card-body d-flex flex-column">
+                    <h6 class="card-title">@advertisement.Title</h6>
+                    <div class="card-body d-flex flex-column align-items-end justify-content-end">
+                        <div><strong>@advertisement.Price.ToString("N2") zł</strong></div>
+                        <div class="table-nickname-caption">Dodane przez: @advertisement.User?.UserName</div>
+                        <div class="table-nickname-caption">@advertisement.Location - @advertisement.DateOfPublication.ToLocalTime().ToString("f")</div>
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(ViewBag.UserId))
+                    {
+                        <button class="btn btn-danger"
+                                onclick="deleteAdvertisement(@advertisement.Id, this)">
+                            Usuń
+                        </button>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+

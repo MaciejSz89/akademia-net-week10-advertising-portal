@@ -1,0 +1,10 @@
+1. Na stronie głównej wyświetla się tabela z ogłoszeniami
+2. Na stronie z tabelą ogłoszeń powinna być możliwość filrtowania
+3. Ogłoszenia powinny zawierać tytuł, opis, zdjęcia, datę dodania, kategorię, cenę, miejscowość
+4. Każdy użytkownik powinien móc ustawić swój nick
+5. Dodawać ogłoszenia może tylko osoba zalogowana
+6. Powinna być możliwość wyświetlenia ogłoszeń w formie tabeli lub kart
+7. Kategorie na razie stworzyć na sztywno w tabeli w bazie danych, ale docelowo powinien je ustawiać administrator
+8. Portal ma dotyczyć sprzedaży przedmiotów używanych
+9. Jedno ze zdjęć ogłoszenia powinno być zdjęciem głównym
+

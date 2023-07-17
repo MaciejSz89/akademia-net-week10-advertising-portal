@@ -1,0 +1,174 @@
+﻿@using AdvertisingPortal.Core.Models;
+@model AdvertisementsViewModel
+
+@{
+    ViewData["Title"] = "Ogłoszenia";
+}
+
+<h1 class="mb-4">Ogłoszenia</h1>
+
+<div class="container-fluid">
+    <form id="filterForm" class="gy-2 gx-3 align-items-center mb-4">
+    
+        <div class="row">
+            <div class="col-auto">
+                @Html.TextBoxFor(x => x.FilterAdvertisements.Text,
+                new { @class="form-control form-control mb-2",
+                placeholder = "Wpisz poszukiwaną frazę..." })
+            </div>
+            <div class="col-auto">
+                @Html.DropDownListFor(x => x.SortAdvertisements,
+                                      Html.GetEnumSelectList<SortAdvertisements>(),
+                                      null,
+                                      new { @class = "form-control mb-2" })
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Szukaj</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <label class="form-label">Cena:</label>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                @Html.TextBoxFor(x => x.FilterAdvertisements.PriceFrom,
+                               new { @class="form-control", placeholder="Od"} )
+            </div>
+            <div class="col-auto">
+                @Html.TextBoxFor(x => x.FilterAdvertisements.PriceTo,
+                                   new { @class="form-control", placeholder="Do"} )
+             </div>  
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <label class="form-label">Kategorie:</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto d-flex flex-wrap"> 
+                @if (Model.Categories != null && Model.Categories.Any())
+                {
+                    @foreach (var category in Model.Categories)
+                    {
+                        <div class="me-3 mb-2">
+                            <input type="checkbox"
+                                   id="category_@category.Id"
+                                   name="@nameof(Model.FilterAdvertisements).@nameof(Model.FilterAdvertisements.Categories)" 
+                                   value="@category.Id" class="form-check-input" 
+                                   checked="checked" />
+                            <label class="form-check-label" for="category_@category.Id">@category.Name</label>
+                        </div>
+                    }       
+                }
+            </div>
+        </div>
+
+    
+    </form>
+
+
+
+    @if (Model.Advertisements != null && Model.Advertisements.Any())
+    {
+        <div class="row mb-3">
+    
+            <div class="col-12 d-flex justify-content-end">
+                <button id="btnTableView" class="btn btn-sm btn-link" onclick="displayTable()">
+                    <i class="bi bi-table"></i>
+                </button>
+                <button id="btnCardsView" class="btn btn-sm" onclick="displayCards()">
+                    <i class="bi bi-grid"></i>
+                </button>          
+            </div>        
+        </div>
+    
+        <div class="row">
+            <div id="advertisementsPartial" class="col-12">
+                @await Html.PartialAsync("_AdvertisementsTable", Model.Advertisements)
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="alert alert-info col-12 text-center">
+                Brak ogłoszeń
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            
+            $('#filterForm').submit(function () {
+                $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("AdvertisementsTable", "Advertisement")',
+                        data: $(this).serialize(),
+                        success: function (data) {
+                            $('#advertisementsPartial').html(data);
+                    },
+                        error: function(data){
+                        alert(data.message);
+                    },
+                    dataType: 'html'
+            }); 
+   
+
+                return false;
+            })
+        });
+
+        function displayTable() {
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AdvertisementsTable", "Advertisement")',
+                data: $('#filterForm').serialize(),
+                success: function (data) {
+                    $('#advertisementsPartial').html(data);
+                    $('#btnTableView').addClass('btn-link');
+                    $('#btnCardsView').removeClass('btn-link');
+                },
+                error: function(data){
+                    alert(data.message);
+                },
+                dataType: 'html'
+            });         
+        }
+
+        function displayCards() {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AdvertisementsCards", "Advertisement")',
+                data: $('#filterForm').serialize(),
+                success: function(data){
+                    $('#advertisementsPartial').html(data);            
+                    $('#btnCardsView').addClass('btn-link');
+                    $('#btnTableView').removeClass('btn-link');
+                },
+                error: function(data){
+                    alert(data.message);
+                },
+                dataType: 'html'
+            });
+        }
+
+        function viewAdvertisement(id){
+            location.href = '@Url.Action("ViewAdvertisement", "Advertisement")' + '?id=' + id;
+        }
+
+    </script>
+}
